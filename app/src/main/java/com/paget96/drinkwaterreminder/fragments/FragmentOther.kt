@@ -7,7 +7,7 @@ import com.paget96.drinkwaterreminder.activities.MainActivity
 import com.paget96.drinkwaterreminder.databinding.FragmentOtherBinding
 import com.paget96.drinkwaterreminder.utils.SafeAttachFragment
 
-class FragmentOther: SafeAttachFragment() {
+class FragmentOther : SafeAttachFragment() {
 
     // Variables
     private var binding: FragmentOtherBinding? = null

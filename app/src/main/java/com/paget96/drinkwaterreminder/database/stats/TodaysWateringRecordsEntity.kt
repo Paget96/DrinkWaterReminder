@@ -10,4 +10,4 @@ class TodaysWateringRecordsEntity(
     @field:ColumnInfo(name = "watering_type") var wateringType: Int,
     @field:ColumnInfo(name = "amount_of_water") var amountOfWater: Float,
     @field:ColumnInfo(name = "is_upcoming") var isUpcoming: Boolean
-    )
+)

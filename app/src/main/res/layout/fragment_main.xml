@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
@@ -24,13 +24,13 @@
 
             <TextView
                 android:id="@+id/textview_one"
+                style="@style/DividerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="Daily drink target"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                style="@style/DividerText"
-                android:text="Daily drink target"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
                 android:id="@+id/progress_bar"
@@ -38,9 +38,9 @@
                 android:layout_height="64dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                app:layout_constraintTop_toBottomOf="@id/textview_one"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_one"
                 app:rcAnimationEnable="true"
                 app:rcAnimationSpeedScale="5.0"
                 app:rcBackgroundColor="?colorSurfaceVariant"
@@ -52,45 +52,46 @@
                 app:rcMax="150"
                 app:rcProgress="140"
                 app:rcProgressColor="?colorPrimary"
-                app:rcSecondaryProgressColor="?colorPrimaryInverse"
-                app:rcRadius="52dp" />
+                app:rcRadius="52dp"
+                app:rcSecondaryProgressColor="?colorPrimaryInverse" />
 
             <TextView
                 android:id="@+id/current_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/progress_bar"
-                app:layout_constraintEnd_toEndOf="@id/progress_bar"
-                app:layout_constraintTop_toBottomOf="@id/progress_bar"
-                android:gravity="center"
                 android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="1580ml / 3050ml"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:text="1580ml / 3050ml"
-                app:drawableStartCompat="@drawable/ic_water_drop" />
+                app:drawableStartCompat="@drawable/ic_water_drop"
+                app:layout_constraintEnd_toEndOf="@id/progress_bar"
+                app:layout_constraintStart_toStartOf="@id/progress_bar"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/add_water"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                app:layout_constraintTop_toTopOf="@id/progress_bar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:tint="@null"
                 android:rotation="-90"
-                app:srcCompat="@drawable/ic_drink"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/progress_bar"
+                app:srcCompat="@drawable/ic_drink"
+                app:tint="@null" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/switch_cup"
+                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/current_progress"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/switch_cup"
+                app:icon="@drawable/ic_water_glass"
                 app:iconTint="@null"
-                app:icon="@drawable/ic_water_glass"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/current_progress" />
 
             <include
                 android:id="@+id/divider_one"
@@ -99,31 +100,31 @@
                 android:layout_height="8dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/switch_cup"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/switch_cup" />
 
             <TextView
                 android:id="@+id/text_view_two"
-                app:layout_constraintTop_toBottomOf="@id/divider_one"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/DividerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                style="@style/DividerText"
-                android:text="Today's watering records"/>
+                android:text="Today's watering records"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_one" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/watering_plan_recycler"
-                app:layout_constraintTop_toBottomOf="@id/text_view_two"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/watering_records_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_two"
                 tools:itemCount="8"
-                tools:listitem="@layout/recycler_view_watering_plan" />
+                tools:listitem="@layout/recycler_view_watering_records" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

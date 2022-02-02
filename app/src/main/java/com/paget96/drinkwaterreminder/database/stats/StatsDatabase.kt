@@ -1,12 +1,15 @@
 package com.paget96.drinkwaterreminder.database.stats
 
 import android.content.Context
-import androidx.room.*
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.paget96.batteryguru.utils.database.batteryinfo.StatsEntity
 
 @Database(
-    entities = [StatsEntity::class, TodaysWateringRecordsEntity::class],version = 2,
-    exportSchema = true)
+    entities = [StatsEntity::class, TodaysWateringRecordsEntity::class], version = 2,
+    exportSchema = true
+)
 
 //@TypeConverters(Converters::class)
 abstract class StatsDatabase : RoomDatabase() {
@@ -52,8 +55,20 @@ abstract class StatsDatabase : RoomDatabase() {
     /**
      * Use this to add new watering plan entries
      */
-    fun setTodaysWateringRecords(timeStamp: Long, wateringType: Int, amountOfWater: Float, isUpcoming: Boolean) {
-        instance!!.todaysWateringRecordsDao.insertAll(TodaysWateringRecordsEntity(timeStamp, wateringType, amountOfWater, isUpcoming))
+    fun setTodaysWateringRecords(
+        timeStamp: Long,
+        wateringType: Int,
+        amountOfWater: Float,
+        isUpcoming: Boolean
+    ) {
+        instance!!.todaysWateringRecordsDao.insertAll(
+            TodaysWateringRecordsEntity(
+                timeStamp,
+                wateringType,
+                amountOfWater,
+                isUpcoming
+            )
+        )
     }
 
     /**

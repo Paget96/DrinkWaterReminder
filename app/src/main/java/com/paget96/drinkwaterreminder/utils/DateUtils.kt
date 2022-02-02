@@ -41,10 +41,15 @@ object DateUtils {
     }
 
     @JvmStatic
-    fun convertMsToDate(timeInMs: Long, useSeconds: Boolean, useMilliseconds: Boolean, showDate: Boolean): String {
+    fun convertMsToDate(
+        timeInMs: Long,
+        useSeconds: Boolean,
+        useMilliseconds: Boolean,
+        showDate: Boolean
+    ): String {
         val simpleDateFormat =
             SimpleDateFormat(
-                "HH:mm" + (if (useSeconds) ":ss" else "") + (if (useMilliseconds) ":SSS" else "") + (if (showDate)" dd.MM.yyyy" else ""),
+                "HH:mm" + (if (useSeconds) ":ss" else "") + (if (useMilliseconds) ":SSS" else "") + (if (showDate) " dd.MM.yyyy" else ""),
                 Locale.getDefault()
             )
         simpleDateFormat.timeZone = TimeZone.getDefault()

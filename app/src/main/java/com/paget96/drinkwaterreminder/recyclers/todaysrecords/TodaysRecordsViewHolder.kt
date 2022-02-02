@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.paget96.drinkwaterreminder.R
 
-class TodaysRecordsViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class TodaysRecordsViewHolder internal constructor(itemView: View) :
+    RecyclerView.ViewHolder(itemView) {
 
     @JvmField
     val wateringType: ImageView = itemView.findViewById(R.id.watering_type)

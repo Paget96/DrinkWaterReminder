@@ -1,9 +1,7 @@
-
 package com.paget96.drinkwaterreminder.activities
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,12 +25,12 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.color.DynamicColors
-import com.paget96.drinkwaterreminder.fragments.FragmentHistory
-import com.paget96.drinkwaterreminder.fragments.FragmentMain
-import com.paget96.drinkwaterreminder.fragments.FragmentOther
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.database.settings.SettingsDatabase
 import com.paget96.drinkwaterreminder.database.stats.StatsDatabase
+import com.paget96.drinkwaterreminder.fragments.FragmentHistory
+import com.paget96.drinkwaterreminder.fragments.FragmentMain
+import com.paget96.drinkwaterreminder.fragments.FragmentOther
 import com.paget96.drinkwaterreminder.utils.Theme
 import com.paget96.drinkwaterreminder.utils.UiUtils
 

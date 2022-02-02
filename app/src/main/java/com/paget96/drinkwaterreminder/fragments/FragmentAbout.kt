@@ -11,7 +11,7 @@ import com.paget96.drinkwaterreminder.utils.SafeAttachFragment
 import com.paget96.drinkwaterreminder.utils.UiUtils.createExplanationDialog
 import com.paget96.drinkwaterreminder.utils.UiUtils.openLink
 
-class FragmentAbout: SafeAttachFragment() {
+class FragmentAbout : SafeAttachFragment() {
 
     // Variables
     private var binding: FragmentAboutBinding? = null

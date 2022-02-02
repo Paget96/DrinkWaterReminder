@@ -3,19 +3,19 @@
     android:id="@+id/cup_type"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_weight="1"
-    android:layout_margin="4dp"
-    android:padding="8dp"
     android:layout_gravity="center"
-    android:background="?selectableItemBackgroundBorderless">
+    android:layout_margin="4dp"
+    android:layout_weight="1"
+    android:background="?selectableItemBackgroundBorderless"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/watering_type"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/ic_water_drop"/>
+        android:src="@drawable/ic_water_drop" />
 
     <TextView
         android:id="@+id/amount_of_water"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:textStyle="bold"
-        android:text="250 ml"/>
+        android:text="250 ml"
+        android:textStyle="bold" />
 
 </LinearLayout>

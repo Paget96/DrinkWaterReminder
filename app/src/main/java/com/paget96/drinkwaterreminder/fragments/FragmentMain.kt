@@ -26,7 +26,6 @@ import com.paget96.drinkwaterreminder.utils.SafeAttachFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 
 class FragmentMain : SafeAttachFragment() {
@@ -34,31 +33,68 @@ class FragmentMain : SafeAttachFragment() {
     // Variables
     private var binding: FragmentMainBinding? = null
     private val numberFormatter = NumberFormatter()
+    private val waterLimitToday = 3050f
+    private var amountOfWaterToday = 0f
 
     private fun viewState() {
         setSwitchCupButtonIcon(attached!!)
+        getTodaysRecords()
+    }
 
+    private fun resetTodaysData() {
+        amountOfWaterToday = 0f
+
+        (attached as MainActivity).statsDatabase!!.todaysWateringRecordsDao.deleteAll()
+        getTodaysRecords()
+    }
+
+    private fun setSwitchCupButtonIcon(context: Context) {
+        val wateringType = numberFormatter.parseIntWithDefault(
+            (attached as MainActivity).statsDatabase!!.getStatsState(
+                "watering_type",
+                "2"
+            ), 2
+        )
         binding?.apply {
-            val waterLimitToday = 3050f
-            val waterCurrent = numberFormatter.parseFloatWithDefault(
-                (attached as MainActivity).statsDatabase!!.getStatsState(
-                    "water_filed",
-                    "0"
-                ), 0f
-            )
+            when {
+                wateringType == -1 -> {
+                    switchCup.icon =
+                        ContextCompat.getDrawable(context, R.drawable.ic_water_cup_customize)
+                }
+                wateringType == 0 -> {
+                    switchCup.icon =
+                        ContextCompat.getDrawable(context, R.drawable.ic_water_small_cup)
+                }
+                wateringType == 1 -> {
+                    switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_mug)
+                }
+                wateringType == 2 -> {
+                    switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_glass)
+                }
+                wateringType == 3 -> {
+                    switchCup.icon =
+                        ContextCompat.getDrawable(context, R.drawable.ic_water_glass_big)
+                }
+                wateringType == 4 -> {
+                    switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_can)
+                }
+                wateringType == 5 -> {
+                    switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_bottle)
+                }
+                wateringType == 6 -> {
+                    switchCup.icon =
+                        ContextCompat.getDrawable(context, R.drawable.ic_water_bike_bottle)
+                }
+                wateringType > 6 -> {
+                    switchCup.icon =
+                        ContextCompat.getDrawable(context, R.drawable.ic_water_cup_customize)
+                }
+            }
+        }
+    }
 
-            // Define max limit a bit over the daily limit
-            progressBar.max = waterLimitToday + (waterLimitToday * 20f / 100f)
-            progressBar.secondaryProgress = waterLimitToday
-
-            // Apply current progress
-            progressBar.progress = waterCurrent
-            currentProgress.text = attached!!.getString(
-                R.string.water_filed_ml,
-                progressBar.progress.toInt().toString(),
-                waterLimitToday.toInt().toString()
-            )
-
+    private fun viewFunction() {
+        binding?.apply {
             // Add more water to the daily goal
             addWater.setOnClickListener {
                 val cupSize = numberFormatter.parseFloatWithDefault(
@@ -157,7 +193,7 @@ class FragmentMain : SafeAttachFragment() {
                         }
                     }
 
-                    setPositiveButton(attached!!.getString(R.string.ok)) { dialogInterface, i ->  resetTodaysData()}
+                    setPositiveButton(attached!!.getString(R.string.ok)) { dialogInterface, i -> }
                     setNegativeButton(attached!!.getString(R.string.cancel)) { dialogInterface, i -> }
 
                     setOnDismissListener {
@@ -167,65 +203,7 @@ class FragmentMain : SafeAttachFragment() {
                     show()
                 }
             }
-
         }
-    }
-
-    private fun resetTodaysData() {
-        (attached as MainActivity).statsDatabase!!.setStatsState(
-            "water_filed", "0"
-        )
-        (attached as MainActivity).statsDatabase!!.todaysWateringRecordsDao.deleteAll()
-        getTodaysRecords()
-    }
-
-    private fun setSwitchCupButtonIcon(context: Context) {
-        val wateringType = numberFormatter.parseIntWithDefault(
-            (attached as MainActivity).statsDatabase!!.getStatsState(
-                "watering_type",
-                "2"
-            ), 2
-        )
-        binding?.apply {
-            when {
-                wateringType == -1 -> {
-                    switchCup.icon =
-                        ContextCompat.getDrawable(context, R.drawable.ic_water_cup_customize)
-                }
-                wateringType == 0 -> {
-                    switchCup.icon =
-                        ContextCompat.getDrawable(context, R.drawable.ic_water_small_cup)
-                }
-                wateringType == 1 -> {
-                    switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_mug)
-                }
-                wateringType == 2 -> {
-                    switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_glass)
-                }
-                wateringType == 3 -> {
-                    switchCup.icon =
-                        ContextCompat.getDrawable(context, R.drawable.ic_water_glass_big)
-                }
-                wateringType == 4 -> {
-                    switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_can)
-                }
-                wateringType == 5 -> {
-                    switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_bottle)
-                }
-                wateringType == 6 -> {
-                    switchCup.icon =
-                        ContextCompat.getDrawable(context, R.drawable.ic_water_bike_bottle)
-                }
-                wateringType > 6 -> {
-                    switchCup.icon =
-                        ContextCompat.getDrawable(context, R.drawable.ic_water_cup_customize)
-                }
-            }
-        }
-    }
-
-    private fun viewFunction() {
-        getTodaysRecords()
     }
 
     private fun getTodaysRecords() {
@@ -235,10 +213,15 @@ class FragmentMain : SafeAttachFragment() {
             val todaysWateringRecordsDatabase =
                 (attached as MainActivity).statsDatabase!!.todaysWateringRecords
 
+            // Reset counter to 0
+            amountOfWaterToday = 0f
+
             todaysWateringRecordsDatabase?.forEach {
+                amountOfWaterToday += it!!.amountOfWater
+
                 data.add(
                     TodaysRecordsData(
-                        it!!.wateringType,
+                        it.wateringType,
                         it.timeStamp,
                         it.amountOfWater,
                         it.isUpcoming
@@ -250,7 +233,7 @@ class FragmentMain : SafeAttachFragment() {
                 if (data.size == 0) {
                     binding?.apply {
                         //progressLayout.visibility = View.VISIBLE
-                        wateringPlanRecycler.visibility = View.GONE
+                        wateringRecordsRecycler.visibility = View.GONE
                         //loadingProgress.visibility = View.GONE
                         //loadingProgressText.visibility = View.GONE
                         //noLog.visibility = View.VISIBLE
@@ -259,17 +242,31 @@ class FragmentMain : SafeAttachFragment() {
                 } else {
                     binding?.apply {
                         //binding!!.progressLayout.visibility = View.GONE
-                        wateringPlanRecycler.visibility = View.VISIBLE
-                        val adapter = TodaysRecordsRecyclerAdapter(attached!!, data, (attached as MainActivity).statsDatabase!!)
-                        wateringPlanRecycler.adapter = adapter
+                        wateringRecordsRecycler.visibility = View.VISIBLE
+                        val adapter = TodaysRecordsRecyclerAdapter(
+                            attached!!,
+                            data, (attached as MainActivity).statsDatabase!!
+                        ) { getTodaysRecords() }
+                        wateringRecordsRecycler.adapter = adapter
                     }
-
                 }
 
                 binding?.apply {
-                    wateringPlanRecycler.setHasFixedSize(true)
-                    wateringPlanRecycler.setItemViewCacheSize(20)
-                    wateringPlanRecycler.isNestedScrollingEnabled = true
+                    // Define max limit a bit over the daily limit
+                    progressBar.max = waterLimitToday + (waterLimitToday * 20f / 100f)
+                    progressBar.secondaryProgress = waterLimitToday
+
+                    // Apply current progress
+                    progressBar.progress = amountOfWaterToday
+                    currentProgress.text = attached!!.getString(
+                        R.string.water_filed_ml,
+                        progressBar.progress.toInt().toString(),
+                        waterLimitToday.toInt().toString()
+                    )
+
+                    wateringRecordsRecycler.setHasFixedSize(true)
+                    wateringRecordsRecycler.setItemViewCacheSize(20)
+                    wateringRecordsRecycler.isNestedScrollingEnabled = true
                     val linearLayoutManager: LinearLayoutManager =
                         object : LinearLayoutManager(attached, VERTICAL, true) {
                             override fun smoothScrollToPosition(
@@ -288,8 +285,10 @@ class FragmentMain : SafeAttachFragment() {
                                 startSmoothScroll(smoothScroller)
                             }
                         }
+                    linearLayoutManager.reverseLayout = true
+                    linearLayoutManager.stackFromEnd = true
                     linearLayoutManager.isSmoothScrollbarEnabled = true
-                    wateringPlanRecycler.layoutManager = linearLayoutManager
+                    wateringRecordsRecycler.layoutManager = linearLayoutManager
                 }
             }
         }
