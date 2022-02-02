@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/page_top_padding"
+            android:paddingBottom="?actionBarSize">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/page_start_end_padding"
+                android:layout_marginEnd="@dimen/page_start_end_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="128dp"
+                            android:layout_height="128dp"
+                            android:layout_centerInParent="true"
+                            android:indeterminate="false"
+                            android:progressDrawable="@drawable/circular_progress_bar" />
+
+                        <ImageView
+                            android:id="@+id/progress_bar_background"
+                            android:layout_width="128dp"
+                            android:layout_height="128dp"
+                            android:layout_centerInParent="true"
+                            android:padding="32dp"
+                            android:src="@mipmap/ic_launcher_round" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        style="@style/CardView.Content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/app_name"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                style="@style/DividerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/support" />
+
+            <com.paget96.drinkwaterreminder.utils.uicomponents.TextWithSummary
+                android:id="@+id/support"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/page_start_end_padding"
+                android:paddingEnd="@dimen/page_start_end_padding"
+                app:drawable="@drawable/ic_shop"
+                app:drawable_padding_end="24dp"
+                app:title_text="@string/support" />
+
+            <com.paget96.drinkwaterreminder.utils.uicomponents.TextWithSummary
+                android:id="@+id/recommended"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/page_start_end_padding"
+                android:paddingEnd="@dimen/page_start_end_padding"
+                app:drawable="@drawable/ic_recommended"
+                app:drawable_padding_end="24dp"
+                app:title_text="@string/recommended_apps" />
+
+            <TextView
+                style="@style/DividerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/management" />
+
+            <com.paget96.drinkwaterreminder.utils.uicomponents.TextWithSummary
+                android:id="@+id/help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/page_start_end_padding"
+                android:paddingEnd="@dimen/page_start_end_padding"
+                app:drawable="@drawable/ic_help"
+                app:drawable_padding_end="24dp"
+                app:title_text="@string/help" />
+
+            <com.paget96.drinkwaterreminder.utils.uicomponents.TextWithSummary
+                android:id="@+id/settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/page_start_end_padding"
+                android:paddingEnd="@dimen/page_start_end_padding"
+                app:drawable="@drawable/ic_settings"
+                app:drawable_padding_end="24dp"
+                app:title_text="@string/settings" />
+
+            <com.paget96.drinkwaterreminder.utils.uicomponents.TextWithSummary
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/page_start_end_padding"
+                android:paddingEnd="@dimen/page_start_end_padding"
+                app:drawable="@drawable/ic_info"
+                app:drawable_padding_end="24dp"
+                app:title_text="@string/about" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

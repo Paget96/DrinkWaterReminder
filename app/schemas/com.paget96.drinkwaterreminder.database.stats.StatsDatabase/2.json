@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "c8164be829380de2e6a43be97ac40479",
+    "entities": [
+      {
+        "tableName": "StatsEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`statsEntry` TEXT NOT NULL, `stats_entry_state` TEXT NOT NULL, PRIMARY KEY(`statsEntry`))",
+        "fields": [
+          {
+            "fieldPath": "statsEntry",
+            "columnName": "statsEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statsEntryState",
+            "columnName": "stats_entry_state",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "statsEntry"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TodaysWateringRecordsEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`timeStamp` INTEGER NOT NULL, `watering_type` INTEGER NOT NULL, `amount_of_water` REAL NOT NULL, `is_upcoming` INTEGER NOT NULL, PRIMARY KEY(`timeStamp`))",
+        "fields": [
+          {
+            "fieldPath": "timeStamp",
+            "columnName": "timeStamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wateringType",
+            "columnName": "watering_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amountOfWater",
+            "columnName": "amount_of_water",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isUpcoming",
+            "columnName": "is_upcoming",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "timeStamp"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c8164be829380de2e6a43be97ac40479')"
+    ]
+  }
+}

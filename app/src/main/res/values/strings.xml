@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Drink Water Reminder</string>
+    <string name="app_package">com.paget96.drinkwaterreminder</string>
+
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="other">Other</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="later">Later</string>
+    <string name="unknown">Unknown</string>
+    <string name="whats_new">What\'s new</string>
+    <string name="more">More</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+
+    <string name="rate">Rate!</string>
+    <string name="rate_app">Love Drink Water Reminder? Please rate it!</string>
+    <string name="management">Management</string>
+
+    <string name="recommended_apps">Recommended apps</string>
+    <string name="support">Support</string>
+    <string name="help">Help</string>
+    <string name="settings">Settings</string>
+
+    <string name="press_again_to_exit">Press again to exit</string>
+
+    <!-- About -->
+    <string name="about">About</string>
+    <string name="invite_friends">Invite friends</string>
+    <string name="credits">Credits</string>
+    <string name="application">Application</string>
+    <string name="paget" translatable="false">Paget96</string>
+    <string name="paget_summary" translatable="false">Danijel Markov</string>
+    <string name="paget_hint">Developer, founder, maintainer</string>
+    <string name="invite_text">Remind your self of drinking water!</string>
+    <string name="beta_version">Beta version</string>
+    <string name="beta_version_text">Stay in tune with the latest changes!\nJoin beta test now!</string>
+    <string name="changelog">Changelog</string>
+    <string name="changelog_text">View recent changes</string>
+    <string name="translation">Translation</string>
+    <string name="translation_text">Help us translate the app</string>
+
+    <string name="day">%1$sd</string>
+    <string name="hour">%1$sh</string>
+    <string name="min">%1$sm</string>
+    <string name="sec">%1$ss</string>
+
+    <string name="ml">%1$s ml</string>
+    <string name="water_filed_ml">%1$sml / %2$sml</string>
+    <string name="switch_cup">Switch cup</string>
+    <string name="custom">Custom</string>
+
+</resources>

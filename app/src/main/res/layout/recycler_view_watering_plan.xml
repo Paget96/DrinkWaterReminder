@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:paddingStart="24dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:paddingEnd="8dp"
+    android:background="@drawable/rounded_corners_background_24dp"
+    android:backgroundTint="?colorSecondaryContainer">
+
+    <ImageView
+        android:id="@+id/watering_type"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_water_drop"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="13:45"/>
+
+        <TextView
+            android:id="@+id/is_upcoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next time"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/amount_of_water"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="250ml"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/more"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:rotation="90"
+        android:background="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_more_horizontal" />
+
+</LinearLayout>

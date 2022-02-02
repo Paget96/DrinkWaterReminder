@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@+id/advertising">
+        <item
+            android:id="@+id/action_support"
+            android:icon="@drawable/ic_premium"
+            android:orderInCategory="100"
+            android:title="@string/support"
+            app:showAsAction="ifRoom" />
+
+        <item
+            android:id="@+id/action_recommend"
+            android:icon="@drawable/ic_recommended"
+            android:orderInCategory="100"
+            android:title="@string/recommended_apps"
+            app:showAsAction="ifRoom" />
+    </group>
+
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/ic_help"
+        android:orderInCategory="100"
+        android:title="@string/help"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="page_start_end_padding">16dp</dimen>
+    <dimen name="page_top_padding">8dp</dimen>
+
+    <dimen name="text_drawable_padding">8dp</dimen>
+
+    <dimen name="circle_icon_padding">8dp</dimen>
+
+    <dimen name="widget_margin">0dp</dimen>
+    <dimen name="widget_padding">8dp</dimen>
+
+</resources>

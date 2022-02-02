@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TextWithSummary">
+        <attr name="title_text" format="string" />
+        <attr name="summary_text" format="string" />
+        <attr name="drawable" format="reference" />
+        <attr name="show_arrow" format="boolean" />
+        <attr name="drawable_padding_top" format="dimension" />
+        <attr name="drawable_padding_bottom" format="dimension" />
+        <attr name="drawable_padding_start" format="dimension" />
+        <attr name="drawable_padding_end" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialSwitch">
+        <attr name="switch_title" format="string" />
+        <attr name="switch_summary" format="string" />
+    </declare-styleable>
+
+    <!-- Max height scrollView -->
+    <declare-styleable name="MaxHeightScrollView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+    <attr name="colorActivityBackground" format="reference|color" />
+
+    <!-- Progressbar background -->
+    <attr name="progressbarBackground" format="reference|color" />
+
+    <attr name="infoCircleBackground" format="reference|color" />
+
+    <attr name="iconTint" format="reference|color" />
+
+    <attr name="overflowLayoutBackground" format="reference|color" />
+    <attr name="cardOverflowBackground" format="reference|color" />
+
+</resources>

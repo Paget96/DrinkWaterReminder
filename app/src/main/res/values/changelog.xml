@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+     <string name="whats_new_list" translatable="false">
+         v1.0\n
+- Initial version
+     </string>
+
+    <string name="changelog_list" translatable="false">
+        v1.0\n
+- Initial version
+    </string>
+</resources>
