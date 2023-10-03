@@ -31,7 +31,7 @@ class FragmentAbout : SafeAttachFragment() {
                             "https://play.google.com/store/apps/details?id=com.paget96.netspeedindicator"
                 )
                 sendIntent!!.type = "text/plain"
-                startActivity(sendIntent)
+                startActivity(sendIntent!!)
             }
 
             betaVersion.setOnClickListener { v: View? ->

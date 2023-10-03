@@ -61,30 +61,38 @@ class FragmentMain : SafeAttachFragment() {
                     switchCup.icon =
                         ContextCompat.getDrawable(context, R.drawable.ic_water_cup_customize)
                 }
+
                 wateringType == 0 -> {
                     switchCup.icon =
                         ContextCompat.getDrawable(context, R.drawable.ic_water_small_cup)
                 }
+
                 wateringType == 1 -> {
                     switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_mug)
                 }
+
                 wateringType == 2 -> {
                     switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_glass)
                 }
+
                 wateringType == 3 -> {
                     switchCup.icon =
                         ContextCompat.getDrawable(context, R.drawable.ic_water_glass_big)
                 }
+
                 wateringType == 4 -> {
                     switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_can)
                 }
+
                 wateringType == 5 -> {
                     switchCup.icon = ContextCompat.getDrawable(context, R.drawable.ic_water_bottle)
                 }
+
                 wateringType == 6 -> {
                     switchCup.icon =
                         ContextCompat.getDrawable(context, R.drawable.ic_water_bike_bottle)
                 }
+
                 wateringType > 6 -> {
                     switchCup.icon =
                         ContextCompat.getDrawable(context, R.drawable.ic_water_cup_customize)
@@ -110,23 +118,23 @@ class FragmentMain : SafeAttachFragment() {
                     ), 2
                 )
 
-                val currentWaterLevel = progressBar.progress + cupSize
+                val currentWaterLevel = progressBar.getProgress() + cupSize
 
-                if (currentWaterLevel >= progressBar.max) {
-                    progressBar.max = progressBar.progress + cupSize
+                if (currentWaterLevel >= progressBar.getMax()) {
+                    progressBar.setMax(progressBar.getProgress() + cupSize)
                 }
 
-                progressBar.progress = currentWaterLevel
+                progressBar.setProgress(currentWaterLevel)
 
                 currentProgress.text = attached!!.getString(
                     R.string.water_filed_ml,
-                    progressBar.progress.toInt().toString(),
+                    progressBar.getProgress().toInt().toString(),
                     waterLimitToday.toInt().toString()
                 )
 
                 (attached as MainActivity).statsDatabase!!.setStatsState(
                     "water_filed",
-                    progressBar.progress.toInt().toString()
+                    progressBar.getProgress().toInt().toString()
                 )
 
                 (attached as MainActivity).statsDatabase!!.setTodaysWateringRecords(
@@ -253,14 +261,14 @@ class FragmentMain : SafeAttachFragment() {
 
                 binding?.apply {
                     // Define max limit a bit over the daily limit
-                    progressBar.max = waterLimitToday + (waterLimitToday * 20f / 100f)
-                    progressBar.secondaryProgress = waterLimitToday
+                    progressBar.setMax(waterLimitToday + (waterLimitToday * 20f / 100f))
+                    progressBar.setSecondaryProgress(waterLimitToday)
 
                     // Apply current progress
-                    progressBar.progress = amountOfWaterToday
+                    progressBar.setProgress(amountOfWaterToday)
                     currentProgress.text = attached!!.getString(
                         R.string.water_filed_ml,
-                        progressBar.progress.toInt().toString(),
+                        progressBar.getProgress().toInt().toString(),
                         waterLimitToday.toInt().toString()
                     )
 
