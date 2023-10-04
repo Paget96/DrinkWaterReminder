@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.devtoolsKsp)
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.hiltAndroid)
 }
 
 android {
@@ -53,9 +54,13 @@ dependencies {
     implementation(libs.androidx.browser)
 
     // Lifecycle library
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
+    ksp(libs.androidx.lifecycle.compiler)
+    implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.lifecycle.process)
 
     // Navigation library
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -66,6 +71,10 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.room.compiler)
 
+    // Dagger Hilt library
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
     // Other dependencies
     implementation(libs.appIntro)
     implementation(libs.circleimageview)
@@ -74,4 +83,5 @@ dependencies {
 
     // Kotlin
     implementation(libs.core.ktx)
+    implementation(libs.kotlinx.coroutines.android)
 }
