@@ -12,15 +12,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.color.DynamicColors
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.database.settings.SettingsDatabase
@@ -39,12 +36,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private var theme: Theme? = null
-    private var appBarLayout: AppBarLayout? = null
-    private var doubleBackPressed = false
     private var sharedPreferences: SharedPreferences? = null
     private var settingsDatabase: SettingsDatabase? = null
     private var statsDatabase: StatsDatabase? = null
 
+    // private var appBarLayout: AppBarLayout? = null
+    // private var doubleBackPressed = false
 
     private fun initializeSharedPreferences() {
         sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
@@ -180,9 +177,11 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragmentAbout,
-                R.id.fragmentSettings -> hideBottomNavigation()
+                R.id.fragmentSettings -> {
+                    binding.bottomNavigation.bottomNavigationView.visibility = View.GONE
+                }
 
-                else -> showBottomNavigation()
+                else -> binding.bottomNavigation.bottomNavigationView.visibility = View.VISIBLE
             }
         }
 
@@ -238,46 +237,37 @@ class MainActivity : AppCompatActivity() {
     // shouldDisplayHomeUp()
     // }
 
-
-    private fun showBottomNavigation() {
-        binding.bottomNavigation.bottomNavigationView.visibility = View.VISIBLE
-    }
-
-    private fun hideBottomNavigation() {
-        binding.bottomNavigation.bottomNavigationView.visibility = View.GONE
-    }
-
-    fun replaceFragment(
-        newFragment: Class<out Fragment>,
-        addToStack: Boolean,
-        transitionAnimations: Boolean,
-        arguments: Bundle?,
-        fragmentTag: String?
-    ) {
-        appBarLayout?.setExpanded(true, true)
-
-        if (addToStack) {
-            supportFragmentManager.commit {
-                if (transitionAnimations) setCustomAnimations(
-                    R.anim.fragment_open_enter,
-                    R.anim.fragment_fade_exit
-                )
-                setReorderingAllowed(true)
-                addToBackStack(null)
-
-                replace(R.id.fragment_container, newFragment, arguments)
-            }
-        } else {
-            supportFragmentManager.commit {
-                if (transitionAnimations) setCustomAnimations(
-                    R.anim.fragment_open_enter,
-                    R.anim.fragment_fade_exit
-                )
-                setReorderingAllowed(true)
-                replace(R.id.fragment_container, newFragment, arguments)
-            }
-        }
-    }
+//    fun replaceFragment(
+//        newFragment: Class<out Fragment>,
+//        addToStack: Boolean,
+//        transitionAnimations: Boolean,
+//        arguments: Bundle?,
+//        fragmentTag: String?
+//    ) {
+//        appBarLayout?.setExpanded(true, true)
+//
+//        if (addToStack) {
+//            supportFragmentManager.commit {
+//                if (transitionAnimations) setCustomAnimations(
+//                    R.anim.fragment_open_enter,
+//                    R.anim.fragment_fade_exit
+//                )
+//                setReorderingAllowed(true)
+//                addToBackStack(null)
+//
+//                replace(R.id.fragment_container, newFragment, arguments)
+//            }
+//        } else {
+//            supportFragmentManager.commit {
+//                if (transitionAnimations) setCustomAnimations(
+//                    R.anim.fragment_open_enter,
+//                    R.anim.fragment_fade_exit
+//                )
+//                setReorderingAllowed(true)
+//                replace(R.id.fragment_container, newFragment, arguments)
+//            }
+//        }
+//    }
 
 //    fun refreshFragment(fragmentTag: String?) {
 //        val frg = supportFragmentManager.findFragmentByTag(fragmentTag)
