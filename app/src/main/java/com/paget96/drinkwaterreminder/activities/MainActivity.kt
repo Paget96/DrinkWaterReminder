@@ -177,6 +177,15 @@ class MainActivity : AppCompatActivity() {
 
         edgeToEdge(findViewById(R.id.toolbar), true)
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.fragmentAbout,
+                R.id.fragmentSettings -> hideBottomNavigation()
+
+                else -> showBottomNavigation()
+            }
+        }
+
 //        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
 //            override fun handleOnBackPressed() {
 //                if (!doubleBackPressed && supportFragmentManager.backStackEntryCount == 0) {
@@ -228,6 +237,15 @@ class MainActivity : AppCompatActivity() {
     // override fun onBackStackChanged() {
     // shouldDisplayHomeUp()
     // }
+
+
+    private fun showBottomNavigation() {
+        binding.bottomNavigation.bottomNavigationView.visibility = View.VISIBLE
+    }
+
+    private fun hideBottomNavigation() {
+        binding.bottomNavigation.bottomNavigationView.visibility = View.GONE
+    }
 
     fun replaceFragment(
         newFragment: Class<out Fragment>,
