@@ -1,15 +1,6 @@
 package com.paget96.drinkwaterreminder.fragments
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.paget96.drinkwaterreminder.R
-import com.paget96.drinkwaterreminder.activities.MainActivity
 
-class FragmentSettings : Fragment(R.layout.fragment_settings) {
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as MainActivity).collapsingToolbarLayout?.title = "Settings"
-    }
-}
+class FragmentSettings : Fragment(R.layout.fragment_settings)

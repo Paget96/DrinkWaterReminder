@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_home"
+        android:id="@+id/fragmentMain"
         android:enabled="true"
         android:icon="@drawable/ic_water_drop"
         android:title="@string/home" />
 
     <item
-        android:id="@+id/action_history"
+        android:id="@+id/fragmentHistory"
         android:enabled="true"
         android:icon="@drawable/ic_history"
         android:title="@string/history" />
 
     <item
-        android:id="@+id/action_other"
+        android:id="@+id/fragmentOther"
         android:enabled="true"
         android:icon="@drawable/ic_other"
         android:title="@string/other" />

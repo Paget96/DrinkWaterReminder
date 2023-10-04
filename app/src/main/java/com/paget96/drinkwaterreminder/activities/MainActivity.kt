@@ -9,45 +9,46 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.color.DynamicColors
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.database.settings.SettingsDatabase
 import com.paget96.drinkwaterreminder.database.stats.StatsDatabase
-import com.paget96.drinkwaterreminder.fragments.FragmentHistory
-import com.paget96.drinkwaterreminder.fragments.FragmentMain
-import com.paget96.drinkwaterreminder.fragments.FragmentOther
+import com.paget96.drinkwaterreminder.databinding.ActivityMainBinding
 import com.paget96.drinkwaterreminder.utils.Theme
 import com.paget96.drinkwaterreminder.utils.UiUtils
 
-class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedListener {
+class MainActivity : AppCompatActivity() {
 
     // Variables
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = requireNotNull(_binding)
+
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     private var theme: Theme? = null
-    var bannerAdContainer: FrameLayout? = null
-    private var haveStackedFragment = false
-    var toolbar: MaterialToolbar? = null
-    var collapsingToolbarLayout: CollapsingToolbarLayout? = null
-    var appBarLayout: AppBarLayout? = null
-    var bottomNavigationView: BottomNavigationView? = null
+    private var appBarLayout: AppBarLayout? = null
     private var doubleBackPressed = false
-    var sharedPreferences: SharedPreferences? = null
-    var settingsDatabase: SettingsDatabase? = null
-    var statsDatabase: StatsDatabase? = null
+    private var sharedPreferences: SharedPreferences? = null
+    private var settingsDatabase: SettingsDatabase? = null
+    private var statsDatabase: StatsDatabase? = null
+
 
     private fun initializeSharedPreferences() {
         sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
@@ -58,12 +59,10 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
         statsDatabase = StatsDatabase.getDatabase(context)
     }
 
-    fun edgeToEdge(topView: View?, useMargins: Boolean) {
+    private fun edgeToEdge(topView: View?, useMargins: Boolean) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val rootLayout = findViewById<LinearLayout>(R.id.main_activity_root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { view, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
 
             view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -83,8 +82,7 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
             WindowInsetsCompat.CONSUMED
         }
 
-        if (topView != null)
-            ViewCompat.requestApplyInsets(rootLayout)
+        if (topView != null) ViewCompat.requestApplyInsets(binding.root)
     }
 
     // Method for setting an app theme (reads current state from Shared Preferences)
@@ -95,146 +93,145 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
         }
     }
 
-    private fun initializeToolbar() {
-        appBarLayout = findViewById(R.id.app_bar)
-        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout)
-        toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-    }
+//    private fun initializeToolbar() {
+//        appBarLayout = findViewById(R.id.app_bar)
+//        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout)
+//        toolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(toolbar)
+//    }
 
-    private fun initializeBottomNavigation() {
-        bottomNavigationView =
-            findViewById<View>(R.id.bottom_navigation_view) as BottomNavigationView
-
-        bottomNavigationView?.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.action_home -> {
-                    replaceFragment(
-                        FragmentMain::class.java,
-                        addToStack = false,
-                        transitionAnimations = true,
-                        arguments = null,
-                        "FragmentMain"
-                    )
-                    true
-                }
-
-                R.id.action_history -> {
-                    replaceFragment(
-                        FragmentHistory::class.java,
-                        addToStack = false,
-                        transitionAnimations = true,
-                        arguments = null,
-                        "FragmentAppUsage"
-                    )
-                    true
-                }
-
-                R.id.action_other -> {
-                    replaceFragment(
-                        FragmentOther::class.java,
-                        addToStack = false,
-                        transitionAnimations = true,
-                        arguments = null,
-                        "FragmentOther"
-                    )
-                    true
-                }
-
-                else -> false
-            }
-        }
-    }
+//    private fun initializeBottomNavigation() {
+//        bottomNavigationView =
+//            findViewById<View>(R.id.bottom_navigation_view) as BottomNavigationView
+//
+//        bottomNavigationView?.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.action_home -> {
+//                    replaceFragment(
+//                        FragmentMain::class.java,
+//                        addToStack = false,
+//                        transitionAnimations = true,
+//                        arguments = null,
+//                        "FragmentMain"
+//                    )
+//                    true
+//                }
+//
+//                R.id.action_history -> {
+//                    replaceFragment(
+//                        FragmentHistory::class.java,
+//                        addToStack = false,
+//                        transitionAnimations = true,
+//                        arguments = null,
+//                        "FragmentAppUsage"
+//                    )
+//                    true
+//                }
+//
+//                R.id.action_other -> {
+//                    replaceFragment(
+//                        FragmentOther::class.java,
+//                        addToStack = false,
+//                        transitionAnimations = true,
+//                        arguments = null,
+//                        "FragmentOther"
+//                    )
+//                    true
+//                }
+//
+//                else -> false
+//            }
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Dynamic color changing
-        DynamicColors.applyIfAvailable(this)
+        DynamicColors.applyToActivityIfAvailable(this)
 
         appTheme()
 
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.fragment_container
+        ) as NavHostFragment
+        navController = navHostFragment.navController
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.fragmentMain,
+                R.id.fragmentHistory,
+                R.id.fragmentOther
+            )
+        )
+
+        setSupportActionBar(binding.toolbar)
+        binding.collapsingToolbarLayout.setupWithNavController(binding.toolbar, navController)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.bottomNavigation.bottomNavigationView.setupWithNavController(navController)
+
         initializeDatabase(this@MainActivity)
         initializeSharedPreferences()
-        initializeBottomNavigation()
-        initializeToolbar()
 
         UiUtils.showWhatsNew(this@MainActivity, sharedPreferences!!)
         UiUtils.rateApp(this@MainActivity, sharedPreferences!!)
 
         edgeToEdge(findViewById(R.id.toolbar), true)
 
-        //Listen for changes in the back stack
-        supportFragmentManager.addOnBackStackChangedListener { shouldDisplayHomeUp() }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!doubleBackPressed && supportFragmentManager.backStackEntryCount == 0) {
+                    doubleBackPressed = true
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.press_again_to_exit),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Handler(Looper.getMainLooper()).postDelayed({ doubleBackPressed = false }, 2000)
+                } else finish()
+            }
+        })
+
+        // Listen for changes in the back stack
+        // supportFragmentManager.addOnBackStackChangedListener { shouldDisplayHomeUp() }
 
         // Set saved fragment
-        if (savedInstanceState == null) {
-            bottomNavigationView?.selectedItemId = R.id.action_home
-
-            replaceFragment(FragmentMain::class.java, false, true, null, "FragmentMain")
-        } else {
-            shouldDisplayHomeUp()
-        }
+//        if (savedInstanceState == null) {
+//            bottomNavigationView?.selectedItemId = R.id.action_home
+//
+//            replaceFragment(FragmentMain::class.java, false, true, null, "FragmentMain")
+//        } else {
+//            shouldDisplayHomeUp()
+//        }
     }
 
-    fun shouldDisplayHomeUp() {
-        val supportFragmentManager = supportFragmentManager
-        haveStackedFragment = supportFragmentManager.backStackEntryCount > 0
-        supportActionBar!!.setDisplayHomeAsUpEnabled(haveStackedFragment)
-        supportActionBar!!.setHomeButtonEnabled(haveStackedFragment)
-        bottomNavigationView?.visibility = if (haveStackedFragment) View.GONE else View.VISIBLE
-    }
+//    fun shouldDisplayHomeUp() {
+//        val supportFragmentManager = supportFragmentManager
+//        haveStackedFragment = supportFragmentManager.backStackEntryCount > 0
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(haveStackedFragment)
+//        supportActionBar!!.setHomeButtonEnabled(haveStackedFragment)
+//        bottomNavigationView?.visibility = if (haveStackedFragment) View.GONE else View.VISIBLE
+//    }
 
     override fun onSupportNavigateUp(): Boolean {
-        //This method is called when the up button is pressed. Just the pop back stack.
-        supportFragmentManager.popBackStack()
-        return true
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    override fun onBackStackChanged() {
-        shouldDisplayHomeUp()
-    }
-
-    override fun onBackPressed() {
-        if (!doubleBackPressed && supportFragmentManager.backStackEntryCount == 0) {
-            doubleBackPressed = true
-            Toast.makeText(this, getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT).show()
-            Handler(Looper.getMainLooper()).postDelayed({ doubleBackPressed = false }, 2000)
-        } else super.onBackPressed()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.overflow_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_support -> {
-
-                true
-            }
-
-            R.id.action_recommend -> {
-
-                true
-            }
-
-            R.id.action_help -> {
-
-                true
-            }
-
-            else ->                 // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                super.onOptionsItemSelected(item)
-        }
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
+
+    // override fun onBackStackChanged() {
+    // shouldDisplayHomeUp()
+    // }
 
     fun replaceFragment(
         newFragment: Class<out Fragment>,
@@ -268,14 +265,13 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
         }
     }
 
-    fun refreshFragment(fragmentTag: String?) {
-        val frg = supportFragmentManager.findFragmentByTag(fragmentTag)
-        val ft = supportFragmentManager.beginTransaction()
-        if (frg != null) {
-            ft.detach(frg)
-            ft.attach(frg)
-            ft.setReorderingAllowed(true).commit()
-        }
-    }
-
+//    fun refreshFragment(fragmentTag: String?) {
+//        val frg = supportFragmentManager.findFragmentByTag(fragmentTag)
+//        val ft = supportFragmentManager.beginTransaction()
+//        if (frg != null) {
+//            ft.detach(frg)
+//            ft.attach(frg)
+//            ft.setReorderingAllowed(true).commit()
+//        }
+//    }
 }

@@ -1,7 +1,11 @@
 package com.paget96.drinkwaterreminder.fragments
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.activities.MainActivity
 import com.paget96.drinkwaterreminder.databinding.FragmentOtherBinding
@@ -72,7 +76,7 @@ class FragmentOther : SafeAttachFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        (attached as MainActivity).collapsingToolbarLayout?.title = "Other"
+//        (attached as MainActivity).collapsingToolbarLayout?.title = "Other"
 
         binding = FragmentOtherBinding.inflate(inflater, container, false)
 
@@ -86,12 +90,12 @@ class FragmentOther : SafeAttachFragment() {
         viewFunction()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        menu.setGroupVisible(R.id.advertising, false)
-        menu.findItem(R.id.action_help).isVisible = false
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//
+//        menu.setGroupVisible(R.id.advertising, false)
+//        menu.findItem(R.id.action_help).isVisible = false
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
