@@ -185,6 +185,7 @@
                         android:text="@string/beta_version_text" />
 
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -228,6 +229,7 @@
                         android:text="@string/changelog_text" />
 
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -271,8 +273,11 @@
                         android:text="@string/translation_text" />
 
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
 </LinearLayout>

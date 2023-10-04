@@ -9,6 +9,7 @@
     </queries>
 
     <application
+        android:name=".application.DrinkWaterReminderApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,7 +19,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".application.MainActivity"
+            android:name=".application.DrinkWaterReminderActivity"
             android:configChanges="locale|keyboard|keyboardHidden|screenLayout|fontScale|orientation|screenSize|smallestScreenSize"
             android:exported="true">
             <intent-filter>

@@ -9,7 +9,9 @@ import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.databinding.FragmentAboutBinding
 import com.paget96.drinkwaterreminder.utils.UiUtils.createExplanationDialog
 import com.paget96.drinkwaterreminder.utils.UiUtils.openLink
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentAbout : Fragment(R.layout.fragment_about) {
 
     // Variables

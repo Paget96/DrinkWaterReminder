@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.databinding.FragmentOtherBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentOther : Fragment(R.layout.fragment_other) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

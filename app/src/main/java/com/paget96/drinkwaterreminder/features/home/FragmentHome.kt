@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.paget96.drinkwaterreminder.databinding.FragmentHomeBinding
 import com.paget96.drinkwaterreminder.utils.NumberFormatter
 import com.paget96.drinkwaterreminder.utils.SafeAttachFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentHome : SafeAttachFragment() {
 
     // Variables

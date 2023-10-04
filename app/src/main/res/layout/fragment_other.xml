@@ -139,5 +139,7 @@
                 app:title_text="@string/about" />
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

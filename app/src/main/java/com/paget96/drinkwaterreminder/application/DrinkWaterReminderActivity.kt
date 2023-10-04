@@ -21,12 +21,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.color.DynamicColors
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.database.settings.SettingsDatabase
-import com.paget96.drinkwaterreminder.database.stats.StatsDatabase
 import com.paget96.drinkwaterreminder.databinding.ActivityMainBinding
 import com.paget96.drinkwaterreminder.utils.Theme
 import com.paget96.drinkwaterreminder.utils.UiUtils
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class DrinkWaterReminderActivity : AppCompatActivity() {
 
     // Variables
     private var _binding: ActivityMainBinding? = null
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private var theme: Theme? = null
     private var sharedPreferences: SharedPreferences? = null
     private var settingsDatabase: SettingsDatabase? = null
-    private var statsDatabase: StatsDatabase? = null
+//    private var statsDatabase: StatsDatabase? = null
 
     // private var appBarLayout: AppBarLayout? = null
     // private var doubleBackPressed = false
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeDatabase(context: Context) {
         settingsDatabase = SettingsDatabase.getDatabase(context)
-        statsDatabase = StatsDatabase.getDatabase(context)
+//        statsDatabase = StatsDatabase.getDatabase(context)
     }
 
     private fun edgeToEdge(topView: View?, useMargins: Boolean) {
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     // Method for setting an app theme (reads current state from Shared Preferences)
     private fun appTheme() {
-        theme = Theme(this@MainActivity)
+        theme = Theme(this@DrinkWaterReminderActivity)
         theme?.apply {
             loadDarkMode(theme!!.getDarkMode())
         }
@@ -166,11 +167,11 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.bottomNavigationView.setupWithNavController(navController)
 
-        initializeDatabase(this@MainActivity)
+        initializeDatabase(this@DrinkWaterReminderActivity)
         initializeSharedPreferences()
 
-        UiUtils.showWhatsNew(this@MainActivity, sharedPreferences!!)
-        UiUtils.rateApp(this@MainActivity, sharedPreferences!!)
+        UiUtils.showWhatsNew(this@DrinkWaterReminderActivity, sharedPreferences!!)
+        UiUtils.rateApp(this@DrinkWaterReminderActivity, sharedPreferences!!)
 
         edgeToEdge(findViewById(R.id.toolbar), true)
 
