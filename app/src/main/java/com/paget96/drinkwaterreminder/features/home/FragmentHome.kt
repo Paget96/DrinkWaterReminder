@@ -1,19 +1,18 @@
-package com.paget96.drinkwaterreminder.fragments
+package com.paget96.drinkwaterreminder.features.home
 
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.paget96.drinkwaterreminder.databinding.FragmentMainBinding
+import com.paget96.drinkwaterreminder.databinding.FragmentHomeBinding
 import com.paget96.drinkwaterreminder.utils.NumberFormatter
 import com.paget96.drinkwaterreminder.utils.SafeAttachFragment
 
-
-class FragmentMain : SafeAttachFragment() {
+class FragmentHome : SafeAttachFragment() {
 
     // Variables
-    private var binding: FragmentMainBinding? = null
+    private var binding: FragmentHomeBinding? = null
     private val numberFormatter = NumberFormatter()
     private val waterLimitToday = 3050f
     private var amountOfWaterToday = 0f
@@ -289,7 +288,7 @@ class FragmentMain : SafeAttachFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         return binding!!.root
     }

@@ -1,4 +1,4 @@
-package com.paget96.drinkwaterreminder.activities
+package com.paget96.drinkwaterreminder.application
 
 import android.content.Context
 import android.content.SharedPreferences

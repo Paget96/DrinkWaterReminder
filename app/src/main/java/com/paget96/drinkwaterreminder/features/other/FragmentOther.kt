@@ -1,4 +1,4 @@
-package com.paget96.drinkwaterreminder.fragments
+package com.paget96.drinkwaterreminder.features.other
 
 import android.os.Bundle
 import android.view.View

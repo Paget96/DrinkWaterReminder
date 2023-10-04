@@ -18,7 +18,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".application.MainActivity"
             android:configChanges="locale|keyboard|keyboardHidden|screenLayout|fontScale|orientation|screenSize|smallestScreenSize"
             android:exported="true">
             <intent-filter>

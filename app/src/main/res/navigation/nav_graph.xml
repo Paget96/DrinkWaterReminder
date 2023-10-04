@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/fragmentMain"
-        android:name="com.paget96.drinkwaterreminder.fragments.FragmentMain"
+        android:name="com.paget96.drinkwaterreminder.features.home.FragmentHome"
         android:label="@string/home"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/fragmentHistory"
-        android:name="com.paget96.drinkwaterreminder.fragments.FragmentHistory"
+        android:name="com.paget96.drinkwaterreminder.features.history.FragmentHistory"
         android:label="@string/history"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/fragmentOther"
-        android:name="com.paget96.drinkwaterreminder.fragments.FragmentOther"
+        android:name="com.paget96.drinkwaterreminder.features.other.FragmentOther"
         android:label="@string/other"
         tools:layout="@layout/fragment_other">
 
@@ -39,13 +39,13 @@
 
     <fragment
         android:id="@+id/fragmentSettings"
-        android:name="com.paget96.drinkwaterreminder.fragments.FragmentSettings"
+        android:name="com.paget96.drinkwaterreminder.features.other.settings.FragmentSettings"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/fragmentAbout"
-        android:name="com.paget96.drinkwaterreminder.fragments.FragmentAbout"
+        android:name="com.paget96.drinkwaterreminder.features.other.about.FragmentAbout"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
 
