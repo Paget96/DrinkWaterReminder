@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.paget96.batteryguru.utils.database.batteryinfo.StatsEntity
 
 @Database(
     entities = [StatsEntity::class, TodaysWateringRecordsEntity::class], version = 2,

@@ -20,8 +20,6 @@ class FragmentAbout : Fragment(R.layout.fragment_about) {
 
         val binding = FragmentAboutBinding.bind(view)
 
-//        (requireActivity() as MainActivity).collapsingToolbarLayout?.title = "About"
-
         with(binding) {
             versionName.text = BuildConfig.VERSION_NAME
 

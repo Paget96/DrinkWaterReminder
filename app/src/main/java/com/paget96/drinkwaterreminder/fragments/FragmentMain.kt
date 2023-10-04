@@ -2,30 +2,12 @@ package com.paget96.drinkwaterreminder.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.paget96.drinkwaterreminder.R
-import com.paget96.drinkwaterreminder.activities.MainActivity
 import com.paget96.drinkwaterreminder.databinding.FragmentMainBinding
-import com.paget96.drinkwaterreminder.recyclers.switchcup.SwitchCupData
-import com.paget96.drinkwaterreminder.recyclers.switchcup.SwitchCupRecyclerAdapter
-import com.paget96.drinkwaterreminder.recyclers.todaysrecords.TodaysRecordsData
-import com.paget96.drinkwaterreminder.recyclers.todaysrecords.TodaysRecordsRecyclerAdapter
-import com.paget96.drinkwaterreminder.utils.DateUtils
 import com.paget96.drinkwaterreminder.utils.NumberFormatter
 import com.paget96.drinkwaterreminder.utils.SafeAttachFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class FragmentMain : SafeAttachFragment() {
@@ -307,8 +289,6 @@ class FragmentMain : SafeAttachFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        (attached as MainActivity).collapsingToolbarLayout?.title = "Main"
-
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
         return binding!!.root

@@ -21,6 +21,32 @@
         android:id="@+id/fragmentOther"
         android:name="com.paget96.drinkwaterreminder.fragments.FragmentOther"
         android:label="@string/other"
-        tools:layout="@layout/fragment_other" />
+        tools:layout="@layout/fragment_other">
+
+        <action
+            android:id="@+id/action_fragmentOther_to_fragmentSettings"
+            app:destination="@id/fragmentSettings"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+
+        <action
+            android:id="@+id/action_fragmentOther_to_fragmentAbout"
+            app:destination="@id/fragmentAbout"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSettings"
+        android:name="com.paget96.drinkwaterreminder.fragments.FragmentSettings"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/fragmentAbout"
+        android:name="com.paget96.drinkwaterreminder.fragments.FragmentAbout"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
 
 </navigation>

@@ -3,14 +3,10 @@ package com.paget96.drinkwaterreminder.activities
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -181,19 +177,19 @@ class MainActivity : AppCompatActivity() {
 
         edgeToEdge(findViewById(R.id.toolbar), true)
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (!doubleBackPressed && supportFragmentManager.backStackEntryCount == 0) {
-                    doubleBackPressed = true
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.press_again_to_exit),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Handler(Looper.getMainLooper()).postDelayed({ doubleBackPressed = false }, 2000)
-                } else finish()
-            }
-        })
+//        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                if (!doubleBackPressed && supportFragmentManager.backStackEntryCount == 0) {
+//                    doubleBackPressed = true
+//                    Toast.makeText(
+//                        this@MainActivity,
+//                        getString(R.string.press_again_to_exit),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                    Handler(Looper.getMainLooper()).postDelayed({ doubleBackPressed = false }, 2000)
+//                } else finish()
+//            }
+//        })
 
         // Listen for changes in the back stack
         // supportFragmentManager.addOnBackStackChangedListener { shouldDisplayHomeUp() }

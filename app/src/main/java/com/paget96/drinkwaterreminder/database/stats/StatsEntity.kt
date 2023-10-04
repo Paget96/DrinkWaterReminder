@@ -1,4 +1,4 @@
-package com.paget96.batteryguru.utils.database.batteryinfo
+package com.paget96.drinkwaterreminder.database.stats
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
