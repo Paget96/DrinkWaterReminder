@@ -59,6 +59,7 @@
             android:background="?selectableItemBackgroundBorderless"
             android:rotation="90"
             android:src="@drawable/ic_more_horizontal" />
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

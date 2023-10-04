@@ -1,28 +1,31 @@
-package com.paget96.drinkwaterreminder.features.home
+package com.paget96.drinkwaterreminder.features.records
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.paget96.drinkwaterreminder.databinding.FragmentHomeBinding
-import com.paget96.drinkwaterreminder.utils.NumberFormatter
-import com.paget96.drinkwaterreminder.utils.SafeAttachFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.paget96.drinkwaterreminder.R
+import com.paget96.drinkwaterreminder.data.db.WateringRecord
+import com.paget96.drinkwaterreminder.databinding.FragmentRecordsBinding
+import com.paget96.drinkwaterreminder.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FragmentHome : SafeAttachFragment() {
+class FragmentRecords : Fragment(R.layout.fragment_records) {
+
+    private val viewModel: RecordsViewModel by viewModels()
 
     // Variables
-    private var binding: FragmentHomeBinding? = null
-    private val numberFormatter = NumberFormatter()
-    private val waterLimitToday = 3050f
-    private var amountOfWaterToday = 0f
+//    private var binding: FragmentHomeBinding? = null
+//    private val numberFormatter = NumberFormatter()
+//    private val waterLimitToday = 3050f
+//    private var amountOfWaterToday = 0f
 
-    private fun viewState() {
-        setSwitchCupButtonIcon(attached!!)
-        getTodaysRecords()
-    }
+//    private fun viewState() {
+//        setSwitchCupButtonIcon(attached!!)
+//        getTodaysRecords()
+//    }
 
 //    private fun resetTodaysData() {
 //        amountOfWaterToday = 0f
@@ -285,25 +288,37 @@ class FragmentHome : SafeAttachFragment() {
 //        }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        return binding!!.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewState()
-        viewFunction()
-    }
+        // viewState()
+        // viewFunction()
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
+        val binding = FragmentRecordsBinding.bind(view)
+
+        val recordsAdapter = RecordsAdapter()
+
+        with(binding) {
+            wateringRecordsRecycler.adapter = recordsAdapter
+
+            addWater.setOnClickListener {
+                viewModel.insertRecord(
+                    WateringRecord(
+                        timeStamp = DateUtils.currentTimeUnix,
+                        wateringType = 2,
+                        amountOfWater = 150.0F,
+                        isUpcoming = true
+                    )
+                )
+            }
+
+            switchCup.setOnClickListener {
+
+            }
+        }
+
+        viewModel.wateringRecords.observe(viewLifecycleOwner) {
+            recordsAdapter.submitList(it)
+        }
     }
 }

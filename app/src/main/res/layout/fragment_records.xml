@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    tools:context=".features.records.FragmentRecords">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_inside_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/page_start_end_padding"
+        android:paddingTop="@dimen/page_top_padding"
+        android:paddingEnd="@dimen/page_start_end_padding"
+        android:paddingBottom="?actionBarSize">
+
+        <TextView
+            android:id="@+id/textview_one"
+            style="@style/DividerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daily drink target"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_one"
+            app:rcAnimationEnable="true"
+            app:rcAnimationSpeedScale="5.0"
+            app:rcBackgroundColor="?colorSurfaceVariant"
+            app:rcBackgroundPadding="8dp"
+            app:rcIconBackgroundColor="?colorPrimary"
+            app:rcIconPadding="5dp"
+            app:rcIconSize="48dp"
+            app:rcIconSrc="@drawable/ic_water_recycle"
+            app:rcMax="150"
+            app:rcProgress="140"
+            app:rcProgressColor="?colorPrimary"
+            app:rcRadius="52dp"
+            app:rcSecondaryProgressColor="?colorPrimaryInverse" />
+
+        <TextView
+            android:id="@+id/current_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="1580ml / 3050ml"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_water_drop"
+            app:layout_constraintEnd_toEndOf="@id/progress_bar"
+            app:layout_constraintStart_toStartOf="@id/progress_bar"
+            app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@null"
+            android:rotation="-90"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/progress_bar"
+            app:srcCompat="@drawable/ic_drink"
+            app:tint="@null" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/switch_cup"
+            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/switch_cup"
+            app:icon="@drawable/ic_water_glass"
+            app:iconTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/current_progress" />
+
+        <include
+            android:id="@+id/divider_one"
+            layout="@layout/layout_divider"
+            android:layout_width="128dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/switch_cup" />
+
+        <TextView
+            android:id="@+id/text_view_two"
+            style="@style/DividerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Today's watering records"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_one" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/watering_records_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_two"
+            tools:itemCount="8"
+            tools:listitem="@layout/item_watering_record" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

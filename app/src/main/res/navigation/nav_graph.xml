@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentMain">
+    app:startDestination="@id/fragmentRecords">
 
     <fragment
-        android:id="@+id/fragmentMain"
-        android:name="com.paget96.drinkwaterreminder.features.home.FragmentHome"
-        android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/fragmentRecords"
+        android:name="com.paget96.drinkwaterreminder.features.records.FragmentRecords"
+        android:label="@string/records"
+        tools:layout="@layout/fragment_records" />
 
     <fragment
         android:id="@+id/fragmentHistory"

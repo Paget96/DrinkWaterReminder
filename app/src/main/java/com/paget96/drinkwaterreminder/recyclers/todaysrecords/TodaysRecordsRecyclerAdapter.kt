@@ -23,13 +23,11 @@ class TodaysRecordsRecyclerAdapter(
 ) :
     RecyclerView.Adapter<TodaysRecordsViewHolder>() {
 
-    // Variables
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodaysRecordsViewHolder {
         //Inflate the layout, initialize the View Holder
         val v =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycler_view_watering_records, parent, false)
+                .inflate(R.layout.item_watering_record, parent, false)
         return TodaysRecordsViewHolder(v)
     }
 
@@ -42,8 +40,8 @@ class TodaysRecordsRecyclerAdapter(
                         R.drawable.ic_water_cup_customize
                     )
                 )
-
             }
+
             list[position].wateringType == 0 -> {
                 holder.wateringType.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -53,6 +51,7 @@ class TodaysRecordsRecyclerAdapter(
                 )
 
             }
+
             list[position].wateringType == 1 -> {
                 holder.wateringType.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -62,6 +61,7 @@ class TodaysRecordsRecyclerAdapter(
                 )
 
             }
+
             list[position].wateringType == 2 -> {
                 holder.wateringType.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -71,6 +71,7 @@ class TodaysRecordsRecyclerAdapter(
                 )
 
             }
+
             list[position].wateringType == 3 -> {
                 holder.wateringType.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -80,6 +81,7 @@ class TodaysRecordsRecyclerAdapter(
                 )
 
             }
+
             list[position].wateringType == 4 -> {
                 holder.wateringType.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -89,6 +91,7 @@ class TodaysRecordsRecyclerAdapter(
                 )
 
             }
+
             list[position].wateringType == 5 -> {
                 holder.wateringType.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -98,6 +101,7 @@ class TodaysRecordsRecyclerAdapter(
                 )
 
             }
+
             list[position].wateringType == 6 -> {
                 holder.wateringType.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -105,8 +109,8 @@ class TodaysRecordsRecyclerAdapter(
                         R.drawable.ic_water_bike_bottle
                     )
                 )
-
             }
+
             list[position].wateringType > list.size -> {
                 holder.wateringType.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -176,5 +180,4 @@ class TodaysRecordsRecyclerAdapter(
         list.removeAt(position)
         notifyItemRemoved(position)
     }
-
 }

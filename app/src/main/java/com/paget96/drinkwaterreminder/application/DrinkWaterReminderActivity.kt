@@ -156,7 +156,7 @@ class DrinkWaterReminderActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.fragmentMain,
+                R.id.fragmentRecords,
                 R.id.fragmentHistory,
                 R.id.fragmentOther
             )

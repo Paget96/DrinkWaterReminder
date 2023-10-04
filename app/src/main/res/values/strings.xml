@@ -50,5 +50,6 @@
     <string name="water_filed_ml">%1$sml / %2$sml</string>
     <string name="switch_cup">Switch cup</string>
     <string name="custom">Custom</string>
+    <string name="records">Records</string>
 
 </resources>
