@@ -6,12 +6,13 @@ circleimageview = "3.1.0"
 constraintlayout = "2.1.4"
 fragment-ktx = "1.6.1"
 kotlin = "1.9.0"
-ksp-devtools = "1.9.0-1.0.13"
+devtools-ksp = "1.9.0-1.0.13"
 core-ktx = "1.12.0"
 appcompat = "1.6.1"
 lifecycleVersion = "2.6.2"
 material = "1.9.0"
 mpAndroidChart = "v3.1.0"
+navVersion = "2.7.3"
 roomVersion = "2.5.2"
 roundCornerProgressBar = "2.2.1"
 work-runtime-ktx = "2.8.1"
@@ -23,6 +24,10 @@ androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleVersion" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleVersion" }
+androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "navVersion" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navVersion" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
 appIntro = { module = "com.github.AppIntro:AppIntro", version.ref = "appIntro" }
@@ -37,4 +42,4 @@ round-corner-progress-bar = { module = "com.akexorcist:round-corner-progress-bar
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kspDevtools = { id = "com.google.devtools.ksp", version.ref = "ksp-devtools" }
+devtoolsKsp = { id = "com.google.devtools.ksp", version.ref = "devtools-ksp" }

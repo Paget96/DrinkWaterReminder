@@ -140,6 +140,7 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
                     )
                     true
                 }
+
                 else -> false
             }
         }
@@ -218,10 +219,12 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
 
                 true
             }
+
             R.id.action_recommend -> {
 
                 true
             }
+
             R.id.action_help -> {
 
                 true
