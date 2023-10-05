@@ -9,7 +9,11 @@
         android:id="@+id/fragmentRecords"
         android:name="com.paget96.drinkwaterreminder.features.records.FragmentRecords"
         android:label="@string/records"
-        tools:layout="@layout/fragment_records" />
+        tools:layout="@layout/fragment_records">
+        <action
+            android:id="@+id/action_fragmentRecords_to_switchCupDialogFragment"
+            app:destination="@id/switchCupDialogFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentHistory"
@@ -48,5 +52,10 @@
         android:name="com.paget96.drinkwaterreminder.features.other.about.FragmentAbout"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
+
+    <dialog
+        android:id="@+id/switchCupDialogFragment"
+        android:name="com.paget96.drinkwaterreminder.features.switchcup.SwitchCupDialogFragment"
+        android:label="SwitchCupDialogFragment" />
 
 </navigation>

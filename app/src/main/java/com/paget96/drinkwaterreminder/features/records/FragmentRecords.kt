@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.data.db.WateringRecord
 import com.paget96.drinkwaterreminder.databinding.FragmentRecordsBinding
@@ -304,12 +305,16 @@ class FragmentRecords : Fragment(R.layout.fragment_records) {
                         timeStamp = DateUtils.currentTimeUnix,
                         wateringType = 2,
                         amountOfWater = 150.0F,
-                        isUpcoming = true
+                        isUpcoming = false
                     )
                 )
             }
 
-            switchCup.setOnClickListener { }
+            switchCup.setOnClickListener { view ->
+                val action =
+                    FragmentRecordsDirections.actionFragmentRecordsToSwitchCupDialogFragment()
+                view.findNavController().navigate(action)
+            }
         }
 
         viewModel.waterLimit.observe(viewLifecycleOwner) { waterLimit ->
