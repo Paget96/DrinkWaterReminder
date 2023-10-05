@@ -19,8 +19,8 @@ class FragmentRecords : Fragment(R.layout.fragment_records) {
     // Variables
 //    private var binding: FragmentHomeBinding? = null
 //    private val numberFormatter = NumberFormatter()
-//    private val waterLimitToday = 3050f
-//    private var amountOfWaterToday = 0f
+    // private val waterLimitToday = 3050f
+    // private var amountOfWaterToday = 0f
 
 //    private fun viewState() {
 //        setSwitchCupButtonIcon(attached!!)
@@ -291,9 +291,6 @@ class FragmentRecords : Fragment(R.layout.fragment_records) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // viewState()
-        // viewFunction()
-
         val binding = FragmentRecordsBinding.bind(view)
 
         val recordsAdapter = RecordsAdapter()
@@ -312,13 +309,31 @@ class FragmentRecords : Fragment(R.layout.fragment_records) {
                 )
             }
 
-            switchCup.setOnClickListener {
-
-            }
+            switchCup.setOnClickListener { }
         }
 
-        viewModel.wateringRecords.observe(viewLifecycleOwner) {
-            recordsAdapter.submitList(it)
+        viewModel.waterLimit.observe(viewLifecycleOwner) { waterLimit ->
+            binding.progressBar.setSecondaryProgress(waterLimit)
+        }
+
+        viewModel.maxProgress.observe(viewLifecycleOwner) { maxProgress ->
+            binding.progressBar.setMax(maxProgress)
+        }
+
+        viewModel.amountOfWater.observe(viewLifecycleOwner) { amountOfWater ->
+            binding.progressBar.setProgress(amountOfWater)
+        }
+
+        viewModel.waterLimitAndAmount.observe(viewLifecycleOwner) { (limit, amount) ->
+            binding.currentProgress.text = requireContext().getString(
+                R.string.water_filed_ml,
+                "$amount",
+                "$limit"
+            )
+        }
+
+        viewModel.wateringRecords.observe(viewLifecycleOwner) { wateringRecords ->
+            recordsAdapter.submitList(wateringRecords)
         }
     }
 }
