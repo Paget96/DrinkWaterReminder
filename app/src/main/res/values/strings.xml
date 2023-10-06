@@ -51,5 +51,6 @@
     <string name="switch_cup">Switch cup</string>
     <string name="custom">Custom</string>
     <string name="records">Records</string>
+    <string name="next_time">Next time</string>
 
 </resources>

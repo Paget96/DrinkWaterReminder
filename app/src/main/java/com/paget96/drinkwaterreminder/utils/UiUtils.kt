@@ -1,7 +1,10 @@
 package com.paget96.drinkwaterreminder.utils
 
 import android.app.Activity
-import android.content.*
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.ResolveInfo
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
@@ -9,7 +12,8 @@ import android.os.Build
 import android.transition.TransitionManager
 import android.util.AndroidRuntimeException
 import android.util.TypedValue
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
@@ -18,9 +22,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.paget96.drinkwaterreminder.BuildConfig
@@ -28,14 +29,6 @@ import com.paget96.drinkwaterreminder.R
 
 object UiUtils {
 
-    /**
-     * View model factory function for making a custom constructor of ViewModel.
-     * By the default view model cannot handle any other arguments
-     */
-    inline fun <VM : ViewModel> viewModelFactory(crossinline funct: () -> VM) =
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T = funct() as T
-        }
 
     /**
      * Returns a color from an attribute reference.
@@ -82,39 +75,6 @@ object UiUtils {
     fun visibilityVisibleWithAnimation(constraintLayoutHolder: ConstraintLayout, view: View) {
         TransitionManager.beginDelayedTransition(constraintLayoutHolder)
         view.visibility = View.VISIBLE
-    }
-
-    fun setStatusBarColor(activity: Activity, @ColorInt color: Int) {
-        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        activity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        activity.window.statusBarColor = color
-    }
-
-    /**
-     * If true, changes the foreground color of the status bars to light so that the items on the bar can be read clearly.
-     * If false, reverts to the default appearance.
-     * This method has no effect on API < 23.
-     */
-    fun setWindowLightStatusBar(activity: Activity, isLight: Boolean) {
-        val window: Window = activity.window
-        val decorView: View = window.decorView
-
-        val wic = WindowInsetsControllerCompat(window, decorView)
-
-        wic.isAppearanceLightStatusBars = isLight
-    }
-
-    @JvmStatic
-    fun setViewEnabled(layout: ViewGroup, state: Boolean) {
-        layout.isEnabled = state
-        for (i in 0 until layout.childCount) {
-            val child: View = layout.getChildAt(i)
-            if (child is ViewGroup) {
-                setViewEnabled(child, state)
-            } else {
-                child.isEnabled = state
-            }
-        }
     }
 
     /**
@@ -354,8 +314,8 @@ object UiUtils {
             messageTv!!.setText(R.string.whats_new_list)
 
             val ok: MaterialButton? = mBottomSheetDialog.findViewById(R.id.button_ok)
-            ok!!.setOnClickListener { v: View? -> mBottomSheetDialog.dismiss() }
-            mBottomSheetDialog.setOnDismissListener { dialog: DialogInterface? ->
+            ok!!.setOnClickListener { mBottomSheetDialog.dismiss() }
+            mBottomSheetDialog.setOnDismissListener {
                 sharedPreferences.edit().putString("app_version", BuildConfig.VERSION_NAME).apply()
             }
             mBottomSheetDialog.show()
