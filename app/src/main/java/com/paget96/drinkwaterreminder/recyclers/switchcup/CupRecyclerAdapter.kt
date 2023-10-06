@@ -9,22 +9,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.database.stats.StatsDatabase
 
-class SwitchCupRecyclerAdapter(
+class CupRecyclerAdapter(
     private val context: Context,
-    private val list: MutableList<SwitchCupData>
+    private val list: MutableList<CupData>
 ) :
-    RecyclerView.Adapter<SwitchCupViewHolder>() {
+    RecyclerView.Adapter<CupViewHolder>() {
 
     // Variables
     private val statsDatabase: StatsDatabase? = StatsDatabase.getDatabase(context)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchCupViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CupViewHolder {
         //Inflate the layout, initialize the View Holder
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_switch_cup, parent, false)
-        return SwitchCupViewHolder(v)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_cup, parent, false)
+        return CupViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: SwitchCupViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CupViewHolder, position: Int) {
         if (list.size - 1 == position) {
             holder.wateringType.setImageDrawable(
                 ContextCompat.getDrawable(
@@ -143,14 +143,14 @@ class SwitchCupRecyclerAdapter(
     }
 
     // Insert a new item to the RecyclerView on a predefined position
-    fun insert(position: Int, SwitchCupData: SwitchCupData) {
-        list.add(position, SwitchCupData)
+    fun insert(position: Int, CupData: CupData) {
+        list.add(position, CupData)
         notifyItemInserted(position)
     }
 
     // Remove a RecyclerView item containing a specified AppUsageData object
-    fun remove(SwitchCupData: SwitchCupData) {
-        val position = list.indexOf(SwitchCupData)
+    fun remove(CupData: CupData) {
+        val position = list.indexOf(CupData)
         list.removeAt(position)
         notifyItemRemoved(position)
     }

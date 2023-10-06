@@ -55,7 +55,7 @@
 
     <dialog
         android:id="@+id/switchCupDialogFragment"
-        android:name="com.paget96.drinkwaterreminder.features.switchcup.SwitchCupDialogFragment"
+        android:name="com.paget96.drinkwaterreminder.features.cup.CupDialogFragment"
         android:label="SwitchCupDialogFragment" />
 
 </navigation>

@@ -1,6 +1,6 @@
 package com.paget96.drinkwaterreminder.recyclers.switchcup
 
-class SwitchCupData(
+class CupData(
     val wateringType: Int,
     val amountOfWater: Int
 )

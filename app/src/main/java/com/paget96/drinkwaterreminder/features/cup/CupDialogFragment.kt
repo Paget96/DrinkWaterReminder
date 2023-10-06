@@ -1,4 +1,4 @@
-package com.paget96.drinkwaterreminder.features.switchcup
+package com.paget96.drinkwaterreminder.features.cup
 
 import android.app.Dialog
 import android.os.Bundle
@@ -9,24 +9,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.databinding.DialogSwitchCupBinding
-import com.paget96.drinkwaterreminder.recyclers.switchcup.SwitchCupRecyclerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SwitchCupDialogFragment : DialogFragment() {
+class CupDialogFragment : DialogFragment() {
 
     private var _binding: DialogSwitchCupBinding? = null
     private val binding: DialogSwitchCupBinding
         get() = requireNotNull(_binding)
 
-    private val viewModel: SwitchCupViewModel by viewModels()
+    private val viewModel: CupViewModel by viewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogSwitchCupBinding.inflate(layoutInflater)
 
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-
-        val adapterData = SwitchCupRecyclerAdapter(requireContext(), viewModel.dummyList)
+        val cupAdapter = CupAdapter()
 
         val gridLayoutManager = GridLayoutManager(
             requireContext(),
@@ -38,24 +35,23 @@ class SwitchCupDialogFragment : DialogFragment() {
         }
 
         with(binding.recycler) {
-            adapter = adapterData
+            adapter = cupAdapter
             setHasFixedSize(true)
-            setItemViewCacheSize(10)
             isNestedScrollingEnabled = true
             clipToPadding = false
             clipChildren = false
             layoutManager = gridLayoutManager
         }
 
-        dialog.apply {
-            setTitle(resources.getString(R.string.switch_cup))
-            setCancelable(true)
-            setView(binding.root)
-            setPositiveButton(resources.getString(R.string.ok), null)
-            setNegativeButton(resources.getString(R.string.cancel), null)
-        }
+        cupAdapter.submitList(viewModel.dummyList)
 
-        return dialog.create()
+        return MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.switch_cup))
+            .setCancelable(true)
+            .setView(binding.root)
+            .setPositiveButton(resources.getString(R.string.ok), null)
+            .setNegativeButton(resources.getString(R.string.cancel), null)
+            .create()
     }
 
     override fun onDestroyView() {

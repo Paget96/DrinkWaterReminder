@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cup_type"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,19 +12,20 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/watering_type"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/ic_water_drop" />
+        android:contentDescription="@null"
+        tools:src="@drawable/ic_water_drop" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/amount_of_water"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="250 ml"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="250 ml" />
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
