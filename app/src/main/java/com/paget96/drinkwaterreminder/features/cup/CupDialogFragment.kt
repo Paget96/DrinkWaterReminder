@@ -43,7 +43,7 @@ class CupDialogFragment : DialogFragment() {
             layoutManager = gridLayoutManager
         }
 
-        cupAdapter.submitList(viewModel.dummyList)
+        cupAdapter.submitList(viewModel.cups)
 
         return MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.switch_cup))

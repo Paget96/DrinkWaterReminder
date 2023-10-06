@@ -31,13 +31,7 @@ class RecordsViewModel @Inject constructor(
         }
 
     val amountOfWater: LiveData<Float>
-        get() = wateringRecords.map {
-            var count = 0F
-            it.forEach { it2 ->
-                count += it2.amountOfWater
-            }
-            count
-        }
+        get() = recordsDao.amountOfWater().asLiveData()
 
     val waterLimitAndAmount: LiveData<Pair<Float, Float>>
         get() = combine(

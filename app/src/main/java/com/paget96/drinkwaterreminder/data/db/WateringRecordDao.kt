@@ -12,6 +12,9 @@ interface WateringRecordDao {
     @Query("SELECT * FROM watering_record ORDER BY id DESC")
     fun wateringRecords(): Flow<List<WateringRecord>>
 
+    @Query("SELECT SUM(amount_of_water) FROM watering_record")
+    fun amountOfWater(): Flow<Float>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(wateringRecord: WateringRecord)
 

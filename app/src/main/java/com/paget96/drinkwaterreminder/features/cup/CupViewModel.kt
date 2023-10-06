@@ -9,7 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CupViewModel @Inject constructor() : ViewModel() {
 
-    val dummyList = listOf(
+    val cups = listOf(
         Cup(0, CupType.Cup100ML, 100),
         Cup(1, CupType.Cup125ML, 125),
         Cup(2, CupType.Cup150L, 150),
