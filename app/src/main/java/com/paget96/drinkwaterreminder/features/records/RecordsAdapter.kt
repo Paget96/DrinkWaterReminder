@@ -1,8 +1,11 @@
 package com.paget96.drinkwaterreminder.features.records
 
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +15,9 @@ import com.paget96.drinkwaterreminder.data.db.WateringRecord
 import com.paget96.drinkwaterreminder.databinding.ItemWateringRecordBinding
 import com.paget96.drinkwaterreminder.utils.DateUtils
 
-class RecordsAdapter : ListAdapter<WateringRecord, RecordsAdapter.RecordsViewHolder>(
+class RecordsAdapter(
+    private val listener: OnItemClickListener
+) : ListAdapter<WateringRecord, RecordsAdapter.RecordsViewHolder>(
     DiffCallback()
 ) {
 
@@ -53,8 +58,42 @@ class RecordsAdapter : ListAdapter<WateringRecord, RecordsAdapter.RecordsViewHol
                     R.string.ml,
                     "${currentItem.amountOfWater}"
                 )
+                if (!currentItem.isUpcoming) {
+                    more.setOnClickListener {
+                        PopupMenu(itemView.context, more).apply {
+                            menuInflater.inflate(R.menu.popup_menu_todays_watering_plan, menu)
+                            setOnMenuItemClickListener(
+                                object : MenuItem.OnMenuItemClickListener,
+                                    PopupMenu.OnMenuItemClickListener {
+                                    override fun onMenuItemClick(item: MenuItem): Boolean {
+                                        when (item.itemId) {
+                                            R.id.action_delete -> listener.onItemDeleteClick(
+                                                currentItem.id
+                                            )
+
+                                            R.id.action_edit -> listener.onItemEditClick(
+                                                currentItem.id
+                                            )
+                                        }
+                                        return true
+                                    }
+                                }
+                            )
+                            show()
+                        }
+                        TooltipCompat.setTooltipText(
+                            more,
+                            itemView.context.getString(R.string.more)
+                        )
+                    }
+                }
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemDeleteClick(id: Long)
+        fun onItemEditClick(id: Long)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<WateringRecord>() {

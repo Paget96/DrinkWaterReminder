@@ -13,7 +13,7 @@ import com.paget96.drinkwaterreminder.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FragmentRecords : Fragment(R.layout.fragment_records) {
+class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnItemClickListener {
 
     private val viewModel: RecordsViewModel by viewModels()
 
@@ -201,100 +201,12 @@ class FragmentRecords : Fragment(R.layout.fragment_records) {
 //        }
     }
 
-    private fun getTodaysRecords() {
-//        lifecycleScope.launch(Dispatchers.Default) {
-//            val data: MutableList<TodaysRecordsData> = ArrayList()
-//
-//            val todaysWateringRecordsDatabase =
-//                (attached as MainActivity).statsDatabase!!.todaysWateringRecords
-//
-//            // Reset counter to 0
-//            amountOfWaterToday = 0f
-//
-//            todaysWateringRecordsDatabase?.forEach {
-//                amountOfWaterToday += it!!.amountOfWater
-//
-//                data.add(
-//                    TodaysRecordsData(
-//                        it.wateringType,
-//                        it.timeStamp,
-//                        it.amountOfWater,
-//                        it.isUpcoming
-//                    )
-//                )
-//            }
-//
-//            withContext(Dispatchers.Main) {
-//                if (data.size == 0) {
-//                    binding?.apply {
-//                        //progressLayout.visibility = View.VISIBLE
-//                        wateringRecordsRecycler.visibility = View.GONE
-//                        //loadingProgress.visibility = View.GONE
-//                        //loadingProgressText.visibility = View.GONE
-//                        //noLog.visibility = View.VISIBLE
-//                    }
-//
-//                } else {
-//                    binding?.apply {
-//                        //binding!!.progressLayout.visibility = View.GONE
-//                        wateringRecordsRecycler.visibility = View.VISIBLE
-//                        val adapter = TodaysRecordsRecyclerAdapter(
-//                            attached!!,
-//                            data, (attached as MainActivity).statsDatabase!!
-//                        ) { getTodaysRecords() }
-//                        wateringRecordsRecycler.adapter = adapter
-//                    }
-//                }
-//
-//                binding?.apply {
-//                    // Define max limit a bit over the daily limit
-//                    progressBar.setMax(waterLimitToday + (waterLimitToday * 20f / 100f))
-//                    progressBar.setSecondaryProgress(waterLimitToday)
-//
-//                    // Apply current progress
-//                    progressBar.setProgress(amountOfWaterToday)
-//                    currentProgress.text = attached!!.getString(
-//                        R.string.water_filed_ml,
-//                        progressBar.getProgress().toInt().toString(),
-//                        waterLimitToday.toInt().toString()
-//                    )
-//
-//                    wateringRecordsRecycler.setHasFixedSize(true)
-//                    wateringRecordsRecycler.setItemViewCacheSize(20)
-//                    wateringRecordsRecycler.isNestedScrollingEnabled = true
-//                    val linearLayoutManager: LinearLayoutManager =
-//                        object : LinearLayoutManager(attached, VERTICAL, true) {
-//                            override fun smoothScrollToPosition(
-//                                recyclerView: RecyclerView,
-//                                state: RecyclerView.State,
-//                                position: Int
-//                            ) {
-//                                val smoothScroller: LinearSmoothScroller =
-//                                    object : LinearSmoothScroller(attached) {
-//                                        val SPEED = 300f
-//                                        override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
-//                                            return SPEED / displayMetrics.densityDpi
-//                                        }
-//                                    }
-//                                smoothScroller.targetPosition = position
-//                                startSmoothScroll(smoothScroller)
-//                            }
-//                        }
-//                    linearLayoutManager.reverseLayout = true
-//                    linearLayoutManager.stackFromEnd = true
-//                    linearLayoutManager.isSmoothScrollbarEnabled = true
-//                    wateringRecordsRecycler.layoutManager = linearLayoutManager
-//                }
-//            }
-//        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentRecordsBinding.bind(view)
 
-        val recordsAdapter = RecordsAdapter()
+        val recordsAdapter = RecordsAdapter(this)
 
         with(binding) {
             wateringRecordsRecycler.adapter = recordsAdapter
@@ -340,5 +252,13 @@ class FragmentRecords : Fragment(R.layout.fragment_records) {
         viewModel.wateringRecords.observe(viewLifecycleOwner) { wateringRecords ->
             recordsAdapter.submitList(wateringRecords)
         }
+    }
+
+    override fun onItemDeleteClick(id: Long) {
+        viewModel.onItemDelete(id)
+    }
+
+    override fun onItemEditClick(id: Long) {
+        viewModel.onItemEdit(id)
     }
 }

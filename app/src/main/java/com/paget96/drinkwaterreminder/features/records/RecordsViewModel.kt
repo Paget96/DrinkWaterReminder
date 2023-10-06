@@ -44,4 +44,12 @@ class RecordsViewModel @Inject constructor(
     fun insertRecord(record: WateringRecord) = viewModelScope.launch {
         recordsDao.insert(record)
     }
+
+    fun onItemDelete(id: Long) = viewModelScope.launch {
+        recordsDao.deleteById(id)
+    }
+
+    fun onItemEdit(id: Long) = viewModelScope.launch {
+
+    }
 }
