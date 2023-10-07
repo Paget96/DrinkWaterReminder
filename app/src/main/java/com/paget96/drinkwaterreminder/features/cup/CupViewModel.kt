@@ -16,14 +16,14 @@ class CupViewModel @Inject constructor(
 ) : ViewModel() {
 
     val cups = listOf(
-        Cup(0, CupType.Cup100ML, 100),
-        Cup(1, CupType.Cup125ML, 125),
-        Cup(2, CupType.Cup150L, 150),
-        Cup(3, CupType.Cup175ML, 175),
-        Cup(4, CupType.Cup200ML, 200),
-        Cup(5, CupType.Cup300ML, 300),
-        Cup(6, CupType.Cup400ML, 400),
-        Cup(7, CupType.CupCustom, 0)
+        Cup(0, CupType.Cup100ML),
+        Cup(1, CupType.Cup125ML),
+        Cup(2, CupType.Cup150L),
+        Cup(3, CupType.Cup175ML),
+        Cup(4, CupType.Cup200ML),
+        Cup(5, CupType.Cup300ML),
+        Cup(6, CupType.Cup400ML),
+        Cup(7, CupType.CupCustom)
     )
 
     val selectedCup = preferencesManager.selectedCup.asLiveData()

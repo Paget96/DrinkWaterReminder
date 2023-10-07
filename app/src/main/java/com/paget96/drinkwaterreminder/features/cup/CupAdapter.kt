@@ -43,7 +43,7 @@ class CupAdapter(
                 amountOfWater.text = if (currentItem.cupType == CupType.CupCustom) {
                     "Custom"
                 } else {
-                    "${currentItem.amountOfWater}"
+                    "${currentItem.cupType.amountOfWater}ml"
                 }
 
                 root.setOnClickListener {

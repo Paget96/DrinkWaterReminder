@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "records")
 data class WateringRecord(
     @ColumnInfo(name = "time_stamp") val timeStamp: Long,
-    @ColumnInfo(name = "watering_type") val wateringType: Int,
+    @ColumnInfo(name = "cup_type") val cupType: CupType,
     @ColumnInfo(name = "amount_of_water") val amountOfWater: Float,
     @ColumnInfo(name = "is_upcoming") val isUpcoming: Boolean,
     @PrimaryKey(autoGenerate = true) val id: Long = 0
