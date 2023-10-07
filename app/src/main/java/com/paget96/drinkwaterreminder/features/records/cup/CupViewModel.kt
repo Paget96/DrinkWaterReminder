@@ -1,4 +1,4 @@
-package com.paget96.drinkwaterreminder.features.cup
+package com.paget96.drinkwaterreminder.features.records.cup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

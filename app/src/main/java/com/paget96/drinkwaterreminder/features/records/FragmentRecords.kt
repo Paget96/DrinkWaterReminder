@@ -13,7 +13,7 @@ import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.data.db.CupType
 import com.paget96.drinkwaterreminder.data.db.WateringRecord
 import com.paget96.drinkwaterreminder.databinding.FragmentRecordsBinding
-import com.paget96.drinkwaterreminder.features.cup.CupViewModel
+import com.paget96.drinkwaterreminder.features.records.cup.CupViewModel
 import com.paget96.drinkwaterreminder.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -88,7 +88,7 @@ class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnIt
             viewModel.recordsEvent.collect { event ->
                 when (event) {
                     is RecordsViewModel.RecordsEvent.ShowUndoDeleteRecordMessage -> {
-                        Snackbar.make(requireView(), "Reward deleted", Snackbar.LENGTH_LONG)
+                        Snackbar.make(requireView(), "Record deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
                                 viewModel.onUndoDeleteClick(event.record)
                             }
