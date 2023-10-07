@@ -1,6 +1,5 @@
 package com.paget96.drinkwaterreminder.application
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -20,7 +19,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.color.DynamicColors
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.databinding.ActivityMainBinding
-import com.paget96.drinkwaterreminder.utils.UiUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,8 +29,6 @@ class DrinkWaterReminderActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-
-    private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,11 +57,6 @@ class DrinkWaterReminderActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.bottomNavigationView.setupWithNavController(navController)
 
-        initializeSharedPreferences()
-
-        UiUtils.showWhatsNew(this@DrinkWaterReminderActivity, sharedPreferences!!)
-        UiUtils.rateApp(this@DrinkWaterReminderActivity, sharedPreferences!!)
-
         edgeToEdge(findViewById(R.id.toolbar), true)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -91,11 +82,6 @@ class DrinkWaterReminderActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-    }
-
-
-    private fun initializeSharedPreferences() {
-        sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
     }
 
     private fun edgeToEdge(topView: View?, useMargins: Boolean) {
