@@ -10,7 +10,9 @@ import com.paget96.drinkwaterreminder.data.db.Cup
 import com.paget96.drinkwaterreminder.data.db.CupType
 import com.paget96.drinkwaterreminder.databinding.ItemCupBinding
 
-class CupAdapter : ListAdapter<Cup, CupAdapter.CupViewHolder>(DiffCallback()) {
+class CupAdapter(
+    private val listener: OnItemClickListener
+) : ListAdapter<Cup, CupAdapter.CupViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CupViewHolder {
         val binding = ItemCupBinding.inflate(
@@ -43,8 +45,16 @@ class CupAdapter : ListAdapter<Cup, CupAdapter.CupViewHolder>(DiffCallback()) {
                 } else {
                     "${currentItem.amountOfWater}"
                 }
+
+                root.setOnClickListener {
+                    listener.onItemSelectedClick(currentItem.cupType)
+                }
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemSelectedClick(cupType: CupType)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Cup>() {

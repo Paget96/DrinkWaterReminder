@@ -6,7 +6,7 @@ import com.paget96.drinkwaterreminder.R
 data class Cup(
     val id: Long,
     val cupType: CupType,
-    val amountOfWater: Int
+    val amountOfWater: Int,
 )
 
 enum class CupType(

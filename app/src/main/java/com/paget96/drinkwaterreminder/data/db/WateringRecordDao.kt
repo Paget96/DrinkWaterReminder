@@ -9,18 +9,18 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WateringRecordDao {
 
-    @Query("SELECT * FROM watering_record ORDER BY id DESC")
+    @Query("SELECT * FROM records ORDER BY id DESC")
     fun wateringRecords(): Flow<List<WateringRecord>>
 
-    @Query("SELECT SUM(amount_of_water) FROM watering_record")
+    @Query("SELECT SUM(amount_of_water) FROM records")
     fun amountOfWater(): Flow<Float>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(wateringRecord: WateringRecord)
 
-    @Query("DELETE FROM watering_record WHERE id = :id")
+    @Query("DELETE FROM records WHERE id = :id")
     suspend fun deleteById(id: Long)
 
-    @Query("DELETE FROM watering_record")
+    @Query("DELETE FROM records")
     suspend fun deleteAll()
 }

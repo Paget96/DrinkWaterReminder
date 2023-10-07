@@ -1,13 +1,19 @@
 package com.paget96.drinkwaterreminder.features.cup
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.paget96.drinkwaterreminder.data.PreferencesManager
 import com.paget96.drinkwaterreminder.data.db.Cup
 import com.paget96.drinkwaterreminder.data.db.CupType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CupViewModel @Inject constructor() : ViewModel() {
+class CupViewModel @Inject constructor(
+    private val preferencesManager: PreferencesManager
+) : ViewModel() {
 
     val cups = listOf(
         Cup(0, CupType.Cup100ML, 100),
@@ -19,4 +25,10 @@ class CupViewModel @Inject constructor() : ViewModel() {
         Cup(6, CupType.Cup400ML, 400),
         Cup(7, CupType.CupCustom, 0)
     )
+
+    val selectedCup = preferencesManager.selectedCup.asLiveData()
+
+    fun onSelectedCup(cupType: CupType) = viewModelScope.launch {
+        preferencesManager.updateSelectedCup(cupType)
+    }
 }

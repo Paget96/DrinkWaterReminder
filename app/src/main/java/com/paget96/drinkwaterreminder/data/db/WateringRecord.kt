@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "watering_record")
+@Entity(tableName = "records")
 data class WateringRecord(
     @ColumnInfo(name = "time_stamp") val timeStamp: Long,
     @ColumnInfo(name = "watering_type") val wateringType: Int,

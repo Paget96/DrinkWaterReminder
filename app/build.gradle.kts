@@ -75,6 +75,9 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
+    // Datastore library
+    implementation(libs.androidx.datastore.preferences)
+
     // Other dependencies
     implementation(libs.appIntro)
     implementation(libs.circleimageview)

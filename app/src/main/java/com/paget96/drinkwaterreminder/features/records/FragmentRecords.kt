@@ -3,12 +3,15 @@ package com.paget96.drinkwaterreminder.features.records
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.data.db.WateringRecord
 import com.paget96.drinkwaterreminder.databinding.FragmentRecordsBinding
+import com.paget96.drinkwaterreminder.features.cup.CupViewModel
 import com.paget96.drinkwaterreminder.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnItemClickListener {
 
     private val viewModel: RecordsViewModel by viewModels()
+    private val sharedViewModel: CupViewModel by activityViewModels()
 
     // Variables
 //    private var binding: FragmentHomeBinding? = null
@@ -223,8 +227,8 @@ class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnIt
             }
 
             switchCup.setOnClickListener { view ->
-                val action =
-                    FragmentRecordsDirections.actionFragmentRecordsToSwitchCupDialogFragment()
+                val action = FragmentRecordsDirections
+                    .actionFragmentRecordsToSwitchCupDialogFragment()
                 view.findNavController().navigate(action)
             }
         }
@@ -251,6 +255,13 @@ class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnIt
 
         viewModel.wateringRecords.observe(viewLifecycleOwner) { wateringRecords ->
             recordsAdapter.submitList(wateringRecords)
+        }
+
+        sharedViewModel.selectedCup.observe(viewLifecycleOwner) { selectedCup ->
+            binding.switchCup.icon = AppCompatResources.getDrawable(
+                requireContext(),
+                selectedCup.icon
+            )
         }
     }
 
