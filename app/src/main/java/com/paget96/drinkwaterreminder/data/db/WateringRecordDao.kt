@@ -1,6 +1,7 @@
 package com.paget96.drinkwaterreminder.data.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,8 +19,8 @@ interface WateringRecordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(wateringRecord: WateringRecord)
 
-    @Query("DELETE FROM records WHERE id = :id")
-    suspend fun deleteById(id: Long)
+    @Delete
+    suspend fun delete(record: WateringRecord)
 
     @Query("DELETE FROM records")
     suspend fun deleteAll()

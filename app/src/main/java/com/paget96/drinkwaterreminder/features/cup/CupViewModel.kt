@@ -7,6 +7,8 @@ import com.paget96.drinkwaterreminder.data.PreferencesManager
 import com.paget96.drinkwaterreminder.data.db.Cup
 import com.paget96.drinkwaterreminder.data.db.CupType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,6 +16,9 @@ import javax.inject.Inject
 class CupViewModel @Inject constructor(
     private val preferencesManager: PreferencesManager
 ) : ViewModel() {
+
+    private val _cupEventChannel = Channel<CupEvent>()
+    val cupEvent get() = _cupEventChannel.receiveAsFlow()
 
     val cups = listOf(
         Cup(0, CupType.Cup100ML),
@@ -30,5 +35,10 @@ class CupViewModel @Inject constructor(
 
     fun onSelectedCup(cupType: CupType) = viewModelScope.launch {
         preferencesManager.updateSelectedCup(cupType)
+        _cupEventChannel.send(CupEvent.CupSelected)
+    }
+
+    sealed class CupEvent {
+        data object CupSelected : CupEvent()
     }
 }

@@ -68,7 +68,7 @@ class RecordsAdapter(
                                     override fun onMenuItemClick(item: MenuItem): Boolean {
                                         when (item.itemId) {
                                             R.id.action_delete -> listener.onItemDeleteClick(
-                                                currentItem.id
+                                                currentItem
                                             )
 
                                             R.id.action_edit -> listener.onItemEditClick(
@@ -92,7 +92,7 @@ class RecordsAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemDeleteClick(id: Long)
+        fun onItemDeleteClick(record: WateringRecord)
         fun onItemEditClick(id: Long)
     }
 

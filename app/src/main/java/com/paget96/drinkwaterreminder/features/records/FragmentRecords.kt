@@ -6,7 +6,9 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.paget96.drinkwaterreminder.R
 import com.paget96.drinkwaterreminder.data.db.CupType
 import com.paget96.drinkwaterreminder.data.db.WateringRecord
@@ -14,6 +16,7 @@ import com.paget96.drinkwaterreminder.databinding.FragmentRecordsBinding
 import com.paget96.drinkwaterreminder.features.cup.CupViewModel
 import com.paget96.drinkwaterreminder.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnItemClickListener {
@@ -80,10 +83,24 @@ class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnIt
                 selectedCup.icon
             )
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.recordsEvent.collect { event ->
+                when (event) {
+                    is RecordsViewModel.RecordsEvent.ShowUndoDeleteRecordMessage -> {
+                        Snackbar.make(requireView(), "Reward deleted", Snackbar.LENGTH_LONG)
+                            .setAction("UNDO") {
+                                viewModel.onUndoDeleteClick(event.record)
+                            }
+                            .show()
+                    }
+                }
+            }
+        }
     }
 
-    override fun onItemDeleteClick(id: Long) {
-        viewModel.onItemDelete(id)
+    override fun onItemDeleteClick(record: WateringRecord) {
+        viewModel.onItemDelete(record)
     }
 
     override fun onItemEditClick(id: Long) {

@@ -10,7 +10,9 @@ import androidx.lifecycle.viewModelScope
 import com.paget96.drinkwaterreminder.data.db.WateringRecord
 import com.paget96.drinkwaterreminder.data.db.WateringRecordDao
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,6 +20,9 @@ import javax.inject.Inject
 class RecordsViewModel @Inject constructor(
     private val recordsDao: WateringRecordDao
 ) : ViewModel() {
+
+    private val _recordsEventChannel = Channel<RecordsEvent>()
+    val recordsEvent get() = _recordsEventChannel.receiveAsFlow()
 
     val wateringRecords: LiveData<List<WateringRecord>>
         get() = recordsDao.wateringRecords().asLiveData()
@@ -45,11 +50,20 @@ class RecordsViewModel @Inject constructor(
         recordsDao.insert(record)
     }
 
-    fun onItemDelete(id: Long) = viewModelScope.launch {
-        recordsDao.deleteById(id)
+    fun onUndoDeleteClick(record: WateringRecord) = viewModelScope.launch {
+        recordsDao.insert(record)
+    }
+
+    fun onItemDelete(record: WateringRecord) = viewModelScope.launch {
+        recordsDao.delete(record)
+        _recordsEventChannel.send(RecordsEvent.ShowUndoDeleteRecordMessage(record))
     }
 
     fun onItemEdit(id: Long) = viewModelScope.launch {
 
+    }
+
+    sealed class RecordsEvent {
+        data class ShowUndoDeleteRecordMessage(val record: WateringRecord) : RecordsEvent()
     }
 }
