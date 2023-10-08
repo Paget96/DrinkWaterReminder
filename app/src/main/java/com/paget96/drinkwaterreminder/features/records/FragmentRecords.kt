@@ -40,7 +40,7 @@ class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnIt
                     WateringRecord(
                         timeStamp = DateUtils.currentTimeUnix,
                         cupType = selectedCup,
-                        amountOfWater = selectedCup.amountOfWater,
+                        amountOfWater = 100.0F, // TODO: Think about it
                         isUpcoming = false
                     )
                 )

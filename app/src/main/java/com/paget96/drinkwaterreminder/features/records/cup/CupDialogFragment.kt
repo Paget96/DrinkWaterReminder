@@ -29,6 +29,23 @@ class CupDialogFragment : DialogFragment(), CupAdapter.OnItemClickListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogSwitchCupBinding.inflate(layoutInflater)
 
+        return MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.switch_cup))
+            .setCancelable(true)
+            .setView(binding.root)
+            .setNegativeButton(resources.getString(R.string.cancel), null)
+            .create()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = binding.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val cupAdapter = CupAdapter(this)
 
         val gridLayoutManager = GridLayoutManager(
@@ -49,24 +66,10 @@ class CupDialogFragment : DialogFragment(), CupAdapter.OnItemClickListener {
             layoutManager = gridLayoutManager
         }
 
-        cupAdapter.submitList(sharedViewModel.cups)
+        sharedViewModel.cups.observe(viewLifecycleOwner) { cups ->
+            cupAdapter.submitList(cups)
+        }
 
-        return MaterialAlertDialogBuilder(requireContext())
-            .setTitle(resources.getString(R.string.switch_cup))
-            .setCancelable(true)
-            .setView(binding.root)
-            .setNegativeButton(resources.getString(R.string.cancel), null)
-            .create()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = binding.root
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             sharedViewModel.cupEvent.collect { event ->
                 when (event) {
