@@ -78,6 +78,9 @@ dependencies {
     // Datastore library
     implementation(libs.androidx.datastore.preferences)
 
+    // Gson
+    implementation(libs.gson)
+
     // Other dependencies
     implementation(libs.appIntro)
     implementation(libs.circleimageview)

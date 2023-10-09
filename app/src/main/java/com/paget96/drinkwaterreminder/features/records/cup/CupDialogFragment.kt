@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.paget96.drinkwaterreminder.R
-import com.paget96.drinkwaterreminder.data.db.CupType
+import com.paget96.drinkwaterreminder.data.db.SelectedCup
 import com.paget96.drinkwaterreminder.databinding.DialogSwitchCupBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -79,8 +79,8 @@ class CupDialogFragment : DialogFragment(), CupAdapter.OnItemClickListener {
         }
     }
 
-    override fun onItemSelectedClick(cupType: CupType) {
-        sharedViewModel.onSelectedCup(cupType)
+    override fun onItemSelectedClick(cup: SelectedCup) {
+        sharedViewModel.onSelectedCup(cup)
     }
 
     override fun onDestroyView() {

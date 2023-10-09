@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.paget96.drinkwaterreminder.data.PreferencesManager
 import com.paget96.drinkwaterreminder.data.db.Cup
 import com.paget96.drinkwaterreminder.data.db.CupType
+import com.paget96.drinkwaterreminder.data.db.SelectedCup
+import com.paget96.drinkwaterreminder.data.db.SelectedCupDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CupViewModel @Inject constructor(
-    private val preferencesManager: PreferencesManager
+    private val selectedCupDao: SelectedCupDao
 ) : ViewModel() {
 
     private val _cupEventChannel = Channel<CupEvent>()
@@ -24,23 +25,22 @@ class CupViewModel @Inject constructor(
 
     private val _cups: MutableLiveData<List<Cup>> = MutableLiveData(
         listOf(
-            Cup(0, CupType.Cup100ML, 100.0F),
-            Cup(1, CupType.Cup125ML, 125.0F),
-            Cup(2, CupType.Cup150L, 150.0F),
-            Cup(3, CupType.Cup175ML, 175.0F),
-            Cup(4, CupType.Cup200ML, 200.0F),
-            Cup(5, CupType.Cup300ML, 300.0F),
-            Cup(6, CupType.Cup400ML, 400.0F),
-            Cup(7, CupType.CupCustom, 0.0F),
-            Cup(8, CupType.CupCustom, 0.0F)
+            Cup.default,
+            Cup(CupType.Cup125ML, 125.0F, 2),
+            Cup(CupType.Cup150L, 150.0F, 3),
+            Cup(CupType.Cup175ML, 175.0F, 4),
+            Cup(CupType.Cup200ML, 200.0F, 5),
+            Cup(CupType.Cup300ML, 300.0F, 6),
+            Cup(CupType.Cup400ML, 400.0F, 7),
+            Cup(CupType.CupCustom, 0.0F, 8)
         )
     )
     val cups: LiveData<List<Cup>> get() = _cups
 
-    val selectedCup = preferencesManager.selectedCup.asLiveData()
+    val selectedCup = selectedCupDao.cup().asLiveData()
 
-    fun onSelectedCup(cupType: CupType) = viewModelScope.launch {
-        preferencesManager.updateSelectedCup(cupType)
+    fun onSelectedCup(cup: SelectedCup) = viewModelScope.launch {
+        selectedCupDao.insert(cup)
         _cupEventChannel.send(CupEvent.CupSelected)
     }
 

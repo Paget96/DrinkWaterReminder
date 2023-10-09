@@ -6,6 +6,7 @@ circleimageview = "3.1.0"
 constraintlayout = "2.1.4"
 datastorePreferences = "1.0.0"
 fragment-ktx = "1.6.1"
+gson = "2.10.1"
 hiltCompiler = "2.48"
 kotlin = "1.9.0"
 devtools-ksp = "1.9.0-1.0.13"
@@ -42,6 +43,7 @@ appIntro = { module = "com.github.AppIntro:AppIntro", version.ref = "appIntro" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltCompiler" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }

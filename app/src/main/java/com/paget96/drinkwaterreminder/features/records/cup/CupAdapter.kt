@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.paget96.drinkwaterreminder.data.db.Cup
 import com.paget96.drinkwaterreminder.data.db.CupType
+import com.paget96.drinkwaterreminder.data.db.SelectedCup
 import com.paget96.drinkwaterreminder.databinding.ItemCupBinding
 
 class CupAdapter(
@@ -47,14 +48,16 @@ class CupAdapter(
                 }
 
                 root.setOnClickListener {
-                    listener.onItemSelectedClick(currentItem.cupType)
+                    listener.onItemSelectedClick(
+                        SelectedCup(currentItem)
+                    )
                 }
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemSelectedClick(cupType: CupType)
+        fun onItemSelectedClick(cup: SelectedCup)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Cup>() {

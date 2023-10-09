@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.paget96.drinkwaterreminder.R
-import com.paget96.drinkwaterreminder.data.db.CupType
+import com.paget96.drinkwaterreminder.data.db.SelectedCup
 import com.paget96.drinkwaterreminder.data.db.WateringRecord
 import com.paget96.drinkwaterreminder.databinding.FragmentRecordsBinding
 import com.paget96.drinkwaterreminder.features.records.cup.CupViewModel
@@ -35,12 +35,13 @@ class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnIt
             wateringRecordsRecycler.adapter = recordsAdapter
 
             addWater.setOnClickListener {
-                val selectedCup = sharedViewModel.selectedCup.value ?: CupType.Cup100ML
+                val selectedCup = sharedViewModel.selectedCup.value
+                    ?: SelectedCup.default
                 viewModel.insertRecord(
                     WateringRecord(
                         timeStamp = DateUtils.currentTimeUnix,
-                        cupType = selectedCup,
-                        amountOfWater = 100.0F, // TODO: Think about it
+                        cupType = selectedCup.cup.cupType,
+                        amountOfWater = selectedCup.cup.amountOfWater,
                         isUpcoming = false
                     )
                 )
@@ -78,9 +79,10 @@ class FragmentRecords : Fragment(R.layout.fragment_records), RecordsAdapter.OnIt
         }
 
         sharedViewModel.selectedCup.observe(viewLifecycleOwner) { selectedCup ->
+            val cup = selectedCup ?: SelectedCup.default
             binding.switchCup.icon = AppCompatResources.getDrawable(
                 requireContext(),
-                selectedCup.icon
+                cup.cup.cupType.icon
             )
         }
 
