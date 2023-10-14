@@ -66,7 +66,7 @@ class CupDialogFragment : DialogFragment(), CupAdapter.OnItemClickListener {
             layoutManager = gridLayoutManager
         }
 
-        sharedViewModel.cups.observe(viewLifecycleOwner) { cups ->
+        sharedViewModel.cupsItem.observe(viewLifecycleOwner) { cups ->
             cupAdapter.submitList(cups)
         }
 
@@ -86,5 +86,6 @@ class CupDialogFragment : DialogFragment(), CupAdapter.OnItemClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        sharedViewModel.resetCups()
     }
 }
